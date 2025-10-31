@@ -1,0 +1,173 @@
+id,name,species,culmen depth (mm),culmen length (mm),flipper length (mm),mass (kg)
+N309,newport,Chinstrap,16.7,42.5,187.0,3.35
+N28,leamington,Adelie,17.9,40.5,187.0,3.2
+N183,mcclurg,Gentoo,15.3,47.3,222.0,5.25
+N286,irene,Chinstrap,19.9,51.3,198.0,3.7
+N233,lester,Gentoo,14.5,49.1,212.0,4.625
+N68,st johns,Adelie,19.1,41.1,188.0,4.1
+N32,giddings,Adelie,18.1,37.2,178.0,3.9
+N343,stetson,Chinstrap,19.0,50.8,210.0,4.1
+N319,prairie park,Chinstrap,19.1,50.9,196.0,3.55
+N100,ohio,Adelie,18.5,43.2,192.0,4.1
+N10,bond,Adelie,20.2,42.0,190.0,4.25
+N184,lansing,Gentoo,14.2,42.8,209.0,4.7
+N19,cottage,Adelie,18.4,34.4,184.0,3.325
+N60,waterside,Adelie,19.1,37.6,194.0,3.75
+N147,minnehaha,Adelie,18.6,39.2,190.0,4.25
+N324,carver,Chinstrap,19.6,49.0,212.0,4.3
+N115,chicago,Adelie,20.7,39.6,191.0,3.9
+N296,haussen,Chinstrap,18.2,49.2,195.0,4.4
+N2,aldine,Adelie,17.4,39.5,186.0,3.8
+N187,river walk,Gentoo,14.8,49.1,220.0,5.15
+N221,grover,Gentoo,14.2,43.5,220.0,4.7
+N134,homer,Adelie,18.5,37.5,199.0,4.475
+N229,homewood,Gentoo,14.2,47.5,209.0,4.6
+N40,mendell,Adelie,19.1,39.8,184.0,4.65
+N113,hayford,Adelie,17.7,39.7,193.0,3.2
+N222,minnetonka,Gentoo,15.0,50.7,223.0,5.55
+N302,gordon,Chinstrap,19.0,52.0,197.0,4.15
+N176,eggleston,Gentoo,15.8,46.3,215.0,5.05
+N179,st mary,Gentoo,14.3,44.5,216.0,4.1
+N177,castleisland,Gentoo,13.1,42.9,215.0,5.0
+N290,arlington,Chinstrap,18.1,52.0,201.0,4.05
+N35,dorchester,Adelie,17.0,36.4,195.0,3.325
+N163,museum campus,Gentoo,13.7,40.9,214.0,4.65
+N185,polk,Gentoo,14.5,45.1,207.0,5.05
+N245,winona,Gentoo,14.5,45.5,212.0,4.75
+N273,morgan,Gentoo,14.3,46.8,215.0,4.85
+N195,holly,Gentoo,13.7,45.3,210.0,4.3
+N294,lundy,Chinstrap,17.8,58.0,181.0,3.7
+N301,lill,Chinstrap,17.9,46.7,195.0,3.3
+N58,burnham,Adelie,18.8,40.6,193.0,3.8
+N53,riversedge,Adelie,17.9,35.0,190.0,3.45
+N161,neola,Gentoo,13.4,43.3,209.0,4.4
+N42,montrose,Adelie,18.4,40.8,195.0,3.9
+N63,laramie,Adelie,17.0,37.6,185.0,3.6
+N239,foster,Gentoo,14.4,43.4,218.0,4.6
+N142,waldron,Adelie,17.2,40.6,187.0,3.475
+N170,bernard,Gentoo,15.2,49.2,221.0,6.3
+N96,mason,Adelie,18.9,40.8,208.0,4.3
+N59,tremont,Adelie,16.6,36.5,181.0,2.85
+N310,kewanee,Chinstrap,18.8,51.0,203.0,4.1
+N128,menomonee,Adelie,18.3,41.5,195.0,4.3
+N270,hill,Gentoo,16.2,48.8,222.0,6.0
+N122,robinson,Adelie,19.8,37.7,198.0,3.5
+N110,high bridge,Adelie,19.0,43.2,197.0,4.775
+N218,edgewater,Gentoo,16.8,49.8,230.0,5.7
+N119,wilmot,Adelie,17.0,35.7,189.0,3.35
+N331,kingsbury,Chinstrap,17.3,42.5,187.0,3.35
+N116,larrabee,Adelie,18.3,42.7,196.0,4.075
+N193,clyde,Gentoo,13.7,42.7,208.0,3.95
+N261,kirby,Gentoo,14.0,43.3,208.0,4.575
+N90,strong,Adelie,18.8,38.9,190.0,3.6
+N38,armstrong,Adelie,18.5,42.2,180.0,3.55
+N79,lipps,Adelie,16.1,36.2,187.0,3.55
+N70,hamlin,Adelie,19.4,41.8,198.0,4.45
+N12,tankfarm,Adelie,17.3,37.8,180.0,3.7
+N151,taft,Adelie,17.1,36.0,187.0,3.7
+N27,lynch,Adelie,18.6,40.6,183.0,3.55
+N267,gladys,Gentoo,14.1,46.2,217.0,4.375
+N17,peoria,Adelie,19.0,38.7,195.0,3.45
+N207,kolmar,Gentoo,14.4,46.5,217.0,4.9
+N72,jones,Adelie,18.4,39.7,190.0,3.9
+N103,markham,Adelie,16.0,37.7,183.0,3.075
+N127,burling,Adelie,17.6,38.8,191.0,3.275
+N65,astor,Adelie,17.1,36.4,184.0,2.85
+N244,fern,Gentoo,17.1,52.2,228.0,5.4
+N325,green bay,Chinstrap,18.7,51.5,187.0,3.25
+N109,edens,Adelie,17.0,38.1,181.0,3.175
+N8,grand,Adelie,19.6,39.2,195.0,4.675
+N25,meyer,Adelie,17.2,38.8,180.0,3.8
+N252,glenwood,Gentoo,16.5,51.1,225.0,5.25
+N284,mannheim,Chinstrap,18.2,51.3,197.0,3.75
+N84,stockton,Adelie,19.4,35.1,193.0,4.2
+N57,willow,Adelie,17.5,39.0,186.0,3.55
+N300,baker,Chinstrap,19.4,50.6,193.0,3.8
+N136,stevenson,Adelie,17.5,41.1,190.0,3.9
+N341,indianapolis,Chinstrap,18.1,43.5,202.0,3.4
+N145,bingham,Adelie,16.8,37.3,192.0,3.0
+N318,ottawa,Chinstrap,17.5,46.2,187.0,3.65
+N160,keystone,Gentoo,15.3,46.7,219.0,5.2
+N31,mccutcheon,Adelie,16.7,39.5,178.0,3.25
+N258,brandon,Gentoo,16.1,46.8,215.0,5.5
+N204,clarence,Gentoo,14.1,48.5,220.0,5.3
+N144,leavenworth,Adelie,17.0,40.7,190.0,3.725
+N339,pine grove,Chinstrap,17.0,45.7,195.0,3.65
+N168,russell,Gentoo,15.7,49.3,217.0,5.85
+N88,ohare,Adelie,18.6,36.9,189.0,3.5
+N102,eberhart,Adelie,20.0,41.0,203.0,4.725
+N48,opal,Adelie,18.9,37.5,179.0,2.975
+N150,edmunds,Adelie,18.1,37.8,193.0,3.75
+N264,edward barron,Gentoo,15.9,49.8,229.0,5.95
+N129,agatite,Adelie,17.1,39.0,191.0,3.05
+N240,delphia,Gentoo,14.2,51.3,218.0,5.3
+N316,richmond,Chinstrap,19.9,53.5,205.0,4.5
+N123,wabansia,Adelie,17.0,40.2,176.0,3.45
+N306,evergreen,Chinstrap,20.0,52.8,205.0,4.55
+N289,belden,Chinstrap,17.3,47.0,185.0,3.7
+N39,hoyt,Adelie,19.3,37.6,181.0,3.3
+N219,wellington,Gentoo,14.4,46.2,214.0,4.65
+N237,lake,Gentoo,13.8,44.9,212.0,4.75
+N5,west circle,Adelie,19.3,36.7,193.0,3.45
+N3,garvey,Adelie,18.0,40.3,195.0,3.25
+N190,humboldt,Gentoo,17.3,44.4,219.0,5.25
+N308,neenah,Chinstrap,20.8,54.2,201.0,4.3
+N274,parkview,Gentoo,15.7,50.4,222.0,5.75
+N216,oketo,Gentoo,15.7,54.3,231.0,5.65
+N125,music court,Adelie,15.9,35.2,186.0,3.05
+N291,cuyler,Chinstrap,17.1,45.9,190.0,3.575
+N285,felton,Chinstrap,18.9,46.0,195.0,4.15
+N101,vermont,Adelie,17.9,35.0,192.0,3.725
+N203,north branch,Gentoo,14.2,46.6,210.0,4.85
+N260,wabash,Gentoo,15.8,53.4,219.0,5.5
+N337,escanaba,Chinstrap,19.5,51.9,206.0,3.95
+N15,homan,Adelie,21.1,34.6,198.0,4.4
+N120,washtenaw,Adelie,18.6,41.1,189.0,3.325
+N249,nashotah,Gentoo,15.8,49.4,216.0,4.925
+N46,west end,Adelie,18.8,39.6,190.0,4.6
+N30,east circle,Adelie,18.9,40.5,180.0,3.95
+N112,pier,Adelie,20.3,45.6,191.0,4.6
+N174,moody,Gentoo,14.5,45.1,215.0,5.0
+N20,cityfront plaza,Adelie,21.5,46.0,194.0,4.2
+N336,dekalb,Chinstrap,19.4,45.6,194.0,3.525
+N117,fillmore,Adelie,17.0,38.6,188.0,2.9
+N85,pensacola,Adelie,17.8,37.3,191.0,3.35
+N36,crowell,Adelie,21.1,39.2,196.0,4.15
+N277,long,Chinstrap,17.9,46.5,192.0,3.5
+N92,michigan,Adelie,18.1,41.1,205.0,4.3
+N118,leona,Adelie,20.5,37.3,199.0,3.775
+N311,butler,Chinstrap,18.6,49.7,195.0,3.6
+N189,oakview,Gentoo,13.7,42.6,213.0,4.95
+N253,abbott,Gentoo,15.0,48.5,219.0,4.85
+N297,rose,Chinstrap,17.3,42.4,181.0,3.6
+N75,rutherford,Adelie,17.5,35.5,190.0,3.7
+N275,governors,Gentoo,14.8,45.2,212.0,5.2
+N254,winston,Gentoo,17.0,55.9,228.0,5.6
+N247,oliphant,Gentoo,14.7,44.5,214.0,4.85
+N327,vincennes,Chinstrap,16.4,48.1,199.0,3.325
+N234,mcdowell,Gentoo,15.6,52.5,221.0,5.45
+N146,york,Adelie,18.7,39.0,185.0,3.65
+N61,rumsey,Adelie,16.9,35.7,185.0,3.15
+N13,overhill,Adelie,17.6,41.1,182.0,3.2
+N148,damen,Adelie,18.4,36.6,184.0,3.475
+N303,balmoral,Chinstrap,18.4,50.5,200.0,3.4
+N232,southspine,Gentoo,16.4,45.2,223.0,5.95
+N91,lambert,Adelie,18.0,35.7,202.0,3.55
+N152,haskins,Adelie,18.5,41.5,201.0,4.0
+N180,commercial,Gentoo,15.0,47.8,215.0,5.65
+N304,harrison,Chinstrap,19.0,49.5,200.0,3.8
+N217,iowa,Gentoo,14.2,45.8,219.0,4.7
+N18,leader,Adelie,20.7,42.5,197.0,4.5
+N201,sheridan,Gentoo,13.3,44.9,213.0,5.1
+N281,north park,Chinstrap,19.8,52.7,197.0,3.725
+N305,navajo,Chinstrap,17.8,46.4,191.0,3.7
+N181,jarlath,Gentoo,14.3,48.2,210.0,4.6
+N43,campbell park,Adelie,18.5,36.0,186.0,3.1
+N230,forest,Gentoo,16.3,51.1,220.0,6.0
+N243,hayes,Gentoo,15.0,47.5,218.0,4.95
+N49,lakeview,Adelie,17.9,36.0,190.0,3.45
+N135,leavitt,Adelie,17.6,38.1,187.0,3.425
+N175,tooker,Gentoo,14.5,46.5,213.0,4.4
+N334,southport,Chinstrap,19.9,49.3,203.0,4.05
+N295,le moyne,Chinstrap,18.6,46.4,190.0,3.45
+N200,zemke,Gentoo,15.9,50.5,225.0,5.4
