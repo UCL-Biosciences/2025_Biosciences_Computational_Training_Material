@@ -13,4 +13,4 @@ Training material for each workshop is in [`workshops`](https://github.com/UCL-B
 For more info, please contact James Gilbert (james.d.gilbert@ucl.ac.uk)
 
 ## Licence
-The material is shared under a CC BY 4.0 [licence](https://github.com/UCL-Biosciences/2025_Computational_Training_Material/blob/main/LICENCE.md).
+The material is shared under a CC BY 4.0 [licence](https://github.com/UCL-Biosciences/2025_Computational_Training_Material/blob/main/LICENCE.md). Attribution is given where approprite within the relevant material.
