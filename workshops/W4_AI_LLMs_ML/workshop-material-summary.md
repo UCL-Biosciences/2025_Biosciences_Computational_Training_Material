@@ -15,5 +15,4 @@ Adam and Laurence work for [Learn to Discover](https://learntodiscover.ai/), whe
 
 The material we looked at is available [here](https://github.com/ScryptIQ-ai/UCL-Biosciences-ML) and another similar example is [here](https://github.com/ScryptIQ-ai/AIBIO-L2D-demo/tree/main).
 
-
-
+Tying things together neatly, Microsoft and Learn To Discover worked together on [this training for using AI](https://learntodiscover.ai/shared/scryptiq/homepage/main.html) on Microsoft's Azure platform.
