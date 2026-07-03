@@ -1,4 +1,4 @@
-# 2025 Biosciences Computational Training Material
+# Biosciences Computational Training Material
 Computational training for UCL Biosciences co-delivered by Biosciences and ARC. This repo contains key info for instructors and participants, including setup details and training material.
 
 All the info is freely available and you can download to your computer by [cloning](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) the repo.
