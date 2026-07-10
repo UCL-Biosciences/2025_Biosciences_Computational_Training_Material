@@ -1,0 +1,4 @@
+[submodule "external/python-novice-comp-bio"]
+	path = external/python-novice-comp-bio
+	url = https://github.com/UCL-Biosciences/python-novice-comp-bio.git
+	branch = dev-update-for-comp-bio-training
