@@ -75,7 +75,7 @@ Adding files tells git to find the files you want to change and record the info 
 
 Finally, run `git push` to send the new files and all the information in the commit to the "remote" repository on github.
 
-**Authentication**. At this point, you might need to do some authentication
+**Authentication**. If you have not signed in to github in Visual Studio Code, you will need to do it before you can `push`. Sign in via the Accounts icon bottom-left of VS Code.
 
 ##### Making and recording changes (15 mins)
 OK let's continue simulating the "real" scenario. Your (favourite) collaborator has just sent the correct dataset and you need to update all the results. You can do that easily (because you wrote reusable code :D) but don't want to throw away the original results in case you want to refer back to them later.
