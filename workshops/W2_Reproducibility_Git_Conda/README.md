@@ -2,28 +2,12 @@
 
 ## Git/GitHub
 
-### Setup
-- [GitHub account](https://github.com/signup)
-- git installed in your laptop
-    - Windows: Follow the [Bash shell installation instructions](https://carpentries.github.io/workshop-template/#the-bash-shell) (under the Git for Windows tab)
-    - Mac:
-        - Open a terminal window
-        - Type:
-      ```
-      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-      ```
-        - Follow the installation prompts
-        - Once it's installed, run: `brew install git` to install git.
-- [Download VS Code](https://code.visualstudio.com/download) 
-
 ### Learning Objectives
 
-After this session, you should be able to
-
-- *understand* the github workflow to contribute to a repository
-- *modify* and **create** pages on a repository using github and/or codespaces
-- *use* VS Code to interact with a github repository
-
+- understand what git offers to researchers and what problem(s) it solves
+- Set up a git account and start version control for the files from w1
+- Make changes and see how history is recorded
+- see how you can collaborate with colleagues on a shared repo
 
 ### GitHub
 
@@ -56,8 +40,16 @@ But our work and files are saved to our computer locally. We need to connect the
 
 To do this, we will use **Visual Studio Code**. This is a handy platform that allows you to explore folders, edit files and run code in a single window. It also has lots of useful "extensions" to help your computational life run smoothly. So, a quick detour:
 1. Open visual studio code and click on `Open Folder`. Navigate to the folder you worked in last week and open it.
-2. Loginto github inside Visual Studio Code. Click on the accounts button in the bottom-left (circle with a person'a head in it), above settings icon. Sign in with or to github and follow the instructions in the browser pop-up to authorise VSC to sign in to your github.
+2. Log in to github inside Visual Studio Code. Click on the accounts button in the bottom-left (circle with a person'a head in it), above settings icon. Sign in with or to github and follow the instructions in the browser pop-up to authorise VSC to sign in to your github.
 3. In the top bar (File, Edit etc), click on `Terminal` > `New Terminal`. Then, a fiddly bit. This terminal session must be bash (or git bash). In Windows, the default terminal is often powershell. To open a bash terminal, click on the little downwards arrow which is in the top right of the terminal window, next to where it says powershell. If it says bash or git bash already, you can go to the next section.
+4. Finally, we set up a couple of things in our git account. This just ensures any changes we make are linked to our github account - use the same email you signed up to git with:
+```
+git config --global user.name "Your Name"
+git config --global user.email "your.@email.com"
+```
+
+`git config --list` will show you that the details you have entered are OK.
+
 
 Now we are ready to **"clone" our repo**. The repo will be cloned (downloaded) to where you selected when you clicked `Open Folder` - make sure this is a suitable location:
 1. To get the address of the github repository, go the repo page, click on the big green `Code` button. Make sure you are on the `HTTPS` tab, and copy the URL in the middle of the box. It will be `https://github.com/<username>/<reponame>.git`
@@ -95,113 +87,62 @@ Go to the repo online and see what changes you can find:
 ##### Summary (5 mins)
 Wowzers! That could have been a disaster! But because we had traceable, reusable code, it was easy to do everything again. And because we version controlled everything with git, we know exactly what the results look like with both datasets, and can look at both versions to understand differences. And this is only part 1! Huzzah!
 
+_____
+
+#### Exercise 2 - Collaborating via GitHub (60 mins)
+##### Finding a group (5 mins)
+Form a group with someone working on a different dataset to yours. Groups can be 2 or more people, as long as there are people working on at least 2 different datasets.
+
+You'll both do every step below — each of you is Repo Owner (for your own repo) and Collaborator (for your partner's repo) at the same time.
+
+##### Giving each other access (5 mins)
+
+Go to your own repo → Settings → Collaborators → Add people. Search your partner's GitHub username and send the invite.
+Check your email / GitHub notifications bell for your partner's invite and accept it.
+
+This can take a couple of minutes to come through. While you wait, look at your collaborators repo. Does it look the same as yours? How is it different?
+
+##### Creating a branch on your partner's repo (5 mins)
+We're about to send our work and changes to a colleague's repo. If we send it directly, it risks messing up what's already there — especially if the code works and is actually being used or relied on by others. You can't go messing up someone's working pipeline!
+
+It's safer to send our changes to a secure, separate working copy first, before anything gets added to the main repo. So we make a working copy of the repo — called a branch — and send our changes there instead of straight to main. The repo owner can then review the changes and decide whether to accept them or not, without main ever being at risk.
+
+1. On your partner's repo page, click the branch dropdown (usually says `main`) → type a new branch name, e.g. `<your-name>-data` → `Create branch`
+2. Make sure the branch selector now shows your new branch, not main
+
+##### Adding your files (10 mins)
+Still on your partner's repo, on your new branch:
+1. Click `Add file` → `Upload files`. `Add file` is to the left of the big green `Code` button and sometimes minimises to a `+` symbol
+2. Drag in your notebook, dataset, and output files from last week (and earlier, if relevant)
+3. Scroll down, add a short commit message, confirm you're committing to your branch (not main), click Commit changes
+
+##### Opening and merging the Pull Request (15 mins)
+
+We've made our changes safely on a separate branch — now we want to bring them into main. But we shouldn't just merge them in blindly; the repo owner hasn't actually seen what's being added yet, and main is the version other people trust and rely on.
+
+It's safer to have a formal review step before anything joins main — a chance for the repo owner to look over exactly what's changed and confirm it's good to bring in. This is called a Pull Request (PR): a formal request to merge your branch into main, which sits open for review until someone with permission accepts it. The repo owner can then look through the changes and decide whether to accept them or not — nothing joins main automatically.
+
+**As Collaborator**: go to your partner's repo — a banner should offer "Compare & pull request" for your branch. Click it, add a short description, `Create pull` request.
+**As Repo Owner**: go to your own repo's `Pull requests` tab, open your partner's PR, look at `Files changed` to see exactly what's being added, then click `Merge pull request`.
+
+By the end, both repos should contain two (or more) datasets' worth of notebooks/data/results.
+
+##### Wrap-up discussion (5 mins)
+
+Now your repo has multiple different datasets in it — does the same code/workflow structure make sense for both?
+What would this have looked like over email instead?
+Why might a branch + PR be safer than uploading straight to main, even without a conflict?
+
+And crucially, git requires some learning; do you think it will be worth it based on what you've seen so far?!
+
+### What's next?
+Now you've got a version-controlled, collaboratively-reviewed project with two analyses sitting in it. But version control on its own doesn't guarantee someone else (or future-you) can actually understand or run what's in there. Next week we'll pick up exactly where this leaves off: making sure the code, data, and environment behind a project are genuinely reproducible — for yourself, for collaborators like the one you just worked with, and for the wider research community — using good research data management, FAIR principles, and our institutional storage systems.
 
 
 
 
 
 
-
-
-
-
-
-
-
-We've got a cities folder in our repository with a set of files separated by continents and countries directories. Go to the file assigned to you (see below) and, in pairs, change at least two of the `FIXME` in the file:
-- write in the file the name of that city in one of their local languages or the pronunciation (You'll find that information on wikipedia);
-- Add a reason of what to see in that city;
-- Update the link to wikipedia.
-
-Try to use any of the [available styling text syntax available in markdown files](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#styling-text).
-
-> [!NOTE]
-> You can add web links in markdown files following this syntax:
-> 
-> ```markdown
-> You can visit [website title](https://web.site/pointed/to).
-> ```
-> 
-> If you need to link to the same page multiple times in the same file or the link makes the text less readable, you can use reference-style links as:
-> 
-> ```markdown
-> You can visit [our website][main-website] to find information about our activities and events.
-> 
-> If you'd like to work with us, our [main page][main-website] also contains a list of open positions.
-> 
-> 
-> [main-website]: https://our.web.site/
-> ```
-
-##### Exercise 2 - Review contributions
-
-Choose one of the pull-request listed above (from a different person that your
-pair), add your name afterwards, and review the pull request as shown by the
-instructor.
-If you are happy with the changes, *approve* it, otherwise, *request changes* to
-make it better. Don't forget to thank them for their contribution.
-
-After approving it, press the <kbd>merge</kbd> button that is now available.
-
-##### Exercise 3 - Add a file: a new traveller
-
-Under the `travellers` directory create a new file as demonstrated with your name or one of a traveller you'd like that join us.
-
-The file needs to have a `qmd` extension: `example.qmd`.
-
-> [!WARNING]
-> 
-> Avoid spaces in the name, use `CamelCase` or `snake_case` if you want to put many words together. For example `sara_alfarsi.qmd`.
-> 
-
-Use the following code snippet as a template for the file, so it is rendered nicely on our website. See the existing ones for inspiration. This is using a [Quarto template](https://quarto.org/docs/websites/website-about.html)
-
-    ---
-    title: "FIXME - Name"
-    subtitle: "FIXME - characteristic"
-    image: FIXME - photo url
-    toc: false
-    about:
-      id: person-profile
-      template: jolla
-    ---
-
-    ```{=html}
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="../travellers.html">Travellers</a></li>
-        <li class="breadcrumb-item active" aria-current="page">{{< meta title >}}</li>
-      </ol>
-    </nav>
-    ```
-
-    :::{#person-profile}
-    :::
-
-    ## Biography
-
-    FIXME: add a one line description about the person
-
-    ## Travelled cities
-
-    - FIXME - add cities visited.
-    - FIXME - city 2
-    - FIXME - city 3
-
-Commit the changes and create a pull request. Add your link to the collaborative document to get someone to review it (add your name when you pick one).
-
-##### Pre-Exercise 4 - configure git locally
-
-This step we need to do it only once, the first time we are using git on our computer.
-
-Open a terminal (gitbash if you are using windows) and type:
-
-```
-git config --global user.name "Your Name"
-git config --global user.email "your.@email.com"
-```
-
-`git config --list` will show you that the details you have entered are OK.
 
 
 ##### Exercise 4 - Make changes locally
