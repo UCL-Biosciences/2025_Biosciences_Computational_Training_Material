@@ -1,15 +1,12 @@
-# Week 2 - Git/GitHub and Environments
-
-## Git/GitHub
-
-### Learning Objectives
+# Week 2 - Git and Github: Reproducibility, Version Control and Collaboration
+## Learning Objectives
 
 - understand what git offers to researchers and what problem(s) it solves
 - Set up a git account and start version control for the files from w1
 - Make changes and see how history is recorded
 - see how you can collaborate with colleagues on a shared repo
 
-### GitHub
+## GitHub
 
 Before getting to GitHub, let's see how a collaboration flow works on MS Word
 
@@ -29,13 +26,13 @@ We'll break this down into two exercises. First for setting a repo up for managi
 
 The first will be done individually, the second in pairs/groups. The isntructor will demo all the steps though and participants will follow along.
 
-#### Exercise 1 - Setting up a github repository (~75 mins)
-##### Making a repo online (5 mins)
+### Exercise 1 - Setting up a github repository (~75 mins)
+#### Making a repo online (5 mins)
 First, we will **make a git repository** on the github webpage
 1. Navigate to [github.com](https://github.com/) and login (or create an account)
 2. Click on `Repositories` tab and click `New`. Add a name for the repo and short description. Click `create repository`. Look around - make yourself at home!
 
-##### Connecting the online repo to your computer (15 mins)
+#### Connecting the online repo to your computer (15 mins)
 But our work and files are saved to our computer locally. We need to connect the repository made on github to our local computer. To do this, we **"clone" the online repo to our computer.**
 
 To do this, we will use **Visual Studio Code**. This is a handy platform that allows you to explore folders, edit files and run code in a single window. It also has lots of useful "extensions" to help your computational life run smoothly. So, a quick detour:
@@ -55,7 +52,7 @@ Now we are ready to **"clone" our repo**. The repo will be cloned (downloaded) t
 1. To get the address of the github repository, go the repo page, click on the big green `Code` button. Make sure you are on the `HTTPS` tab, and copy the URL in the middle of the box. It will be `https://github.com/<username>/<reponame>.git`
 2. Back in the terminal window, enter `git clone https://github.com/<username>/<reponame>.git` (with the correct username and repo name) and press enter.
 
-##### Adding files to the repo (20 mins)
+#### Adding files to the repo (20 mins)
 We are going to add the code, data and outputs from last week. To simulate a real example, we will have two versions - the "wrong" data and the "correct" data. And get a recap on last week while we are here.
 
 1. Go to the notebook you made last week. Edit the file path to the original dataset and re-run the notebook. Make sure the outputs are saved.
@@ -69,7 +66,7 @@ Finally, run `git push` to send the new files and all the information in the com
 
 **Authentication**. If you have not signed in to github in Visual Studio Code, you will need to do it before you can `push`. Sign in via the Accounts icon bottom-left of VS Code.
 
-##### Making and recording changes (15 mins)
+#### Making and recording changes (15 mins)
 OK let's continue simulating the "real" scenario. Your (favourite) collaborator has just sent the correct dataset and you need to update all the results. You can do that easily (because you wrote reusable code :D) but don't want to throw away the original results in case you want to refer back to them later.
 
 Because those files were pushed to git, that info will be stored as long as the repo exists. Note, that is why we never upload personal/sensitive/private data to repos that might later be made public. Or equally, we don't make public any repos that previously contained data that could be found in the commit history.
@@ -78,31 +75,31 @@ So, go to the notebook again. Read in the correct dataset, re-run the code and s
 
 Then, return to Visual Studio Code and the git bash terminal window, and send the changes to github by adding, committing and pushing.
 
-##### Viewing changes on github (10 mins)
+#### Viewing changes on github (10 mins)
 Go to the repo online and see what changes you can find:
 - do the files look different?
 - Can you find the list of previous commits?
 - Can you find the changes that were made during the last commit?
 
-##### Summary (5 mins)
+#### Summary (5 mins)
 Wowzers! That could have been a disaster! But because we had traceable, reusable code, it was easy to do everything again. And because we version controlled everything with git, we know exactly what the results look like with both datasets, and can look at both versions to understand differences. And this is only part 1! Huzzah!
 
 _____
 
-#### Exercise 2 - Collaborating via GitHub (60 mins)
-##### Finding a group (5 mins)
+### Exercise 2 - Collaborating via GitHub (60 mins)
+#### Finding a group (5 mins)
 Form a group with someone working on a different dataset to yours. Groups can be 2 or more people, as long as there are people working on at least 2 different datasets.
 
 You'll both do every step below — each of you is Repo Owner (for your own repo) and Collaborator (for your partner's repo) at the same time.
 
-##### Giving each other access (5 mins)
+#### Giving each other access (5 mins)
 
 Go to your own repo → Settings → Collaborators → Add people. Search your partner's GitHub username and send the invite.
 Check your email / GitHub notifications bell for your partner's invite and accept it.
 
 This can take a couple of minutes to come through. While you wait, look at your collaborators repo. Does it look the same as yours? How is it different?
 
-##### Creating a branch on your partner's repo (5 mins)
+#### Creating a branch on your partner's repo (5 mins)
 We're about to send our work and changes to a colleague's repo. If we send it directly, it risks messing up what's already there — especially if the code works and is actually being used or relied on by others. You can't go messing up someone's working pipeline!
 
 It's safer to send our changes to a secure, separate working copy first, before anything gets added to the main repo. So we make a working copy of the repo — called a branch — and send our changes there instead of straight to main. The repo owner can then review the changes and decide whether to accept them or not, without main ever being at risk.
@@ -110,13 +107,13 @@ It's safer to send our changes to a secure, separate working copy first, before 
 1. On your partner's repo page, click the branch dropdown (usually says `main`) → type a new branch name, e.g. `<your-name>-data` → `Create branch`
 2. Make sure the branch selector now shows your new branch, not main
 
-##### Adding your files (10 mins)
+#### Adding your files (10 mins)
 Still on your partner's repo, on your new branch:
 1. Click `Add file` → `Upload files`. `Add file` is to the left of the big green `Code` button and sometimes minimises to a `+` symbol
 2. Drag in your notebook, dataset, and output files from last week (and earlier, if relevant)
 3. Scroll down, add a short commit message, confirm you're committing to your branch (not main), click Commit changes
 
-##### Opening and merging the Pull Request (15 mins)
+#### Opening and merging the Pull Request (15 mins)
 
 We've made our changes safely on a separate branch — now we want to bring them into main. But we shouldn't just merge them in blindly; the repo owner hasn't actually seen what's being added yet, and main is the version other people trust and rely on.
 
@@ -127,7 +124,7 @@ It's safer to have a formal review step before anything joins main — a chance 
 
 By the end, both repos should contain two (or more) datasets' worth of notebooks/data/results.
 
-##### Wrap-up discussion (5 mins)
+#### Wrap-up discussion (5 mins)
 
 Now your repo has multiple different datasets in it — does the same code/workflow structure make sense for both?
 What would this have looked like over email instead?
@@ -135,7 +132,7 @@ Why might a branch + PR be safer than uploading straight to main, even without a
 
 And crucially, git requires some learning; do you think it will be worth it based on what you've seen so far?!
 
-### What's next?
+## What's next?
 Now you've got a version-controlled, collaboratively-reviewed project with two analyses sitting in it. But version control on its own doesn't guarantee someone else (or future-you) can actually understand or run what's in there. Next week we'll pick up exactly where this leaves off: making sure the code, data, and environment behind a project are genuinely reproducible — for yourself, for collaborators like the one you just worked with, and for the wider research community — using good research data management, FAIR principles, and our institutional storage systems.
 
 
