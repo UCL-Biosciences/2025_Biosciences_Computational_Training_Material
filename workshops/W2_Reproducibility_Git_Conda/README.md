@@ -60,7 +60,7 @@ To do this, we will use **Visual Studio Code**. This is a handy platform that al
 
 Now we are ready to **"clone" our repo**. The repo will be cloned (downloaded) to where you selected when you clicked `Open Folder` - make sure this is a suitable location:
 1. To get the address of the github repository, go the repo page, click on the big green `Code` button. Make sure you are on the `HTTPS` tab, and copy the URL in the middle of the box. It will be `https://github.com/<username>/<reponame>.git`
-1. Back in the terminal window, enter `git clone https://github.com/<username>/<reponame>.git` (with the correct username and repo name) and press enter.
+2. Back in the terminal window, enter `git clone https://github.com/<username>/<reponame>.git` (with the correct username and repo name) and press enter.
 
 ##### Adding files to the repo
 We are going to add the code, data and outputs from last week. To simulate a real example, we will have two versions - the "wrong" data and the "correct" data. And get a recap on last week while we are here.
@@ -74,10 +74,23 @@ Adding files tells git to find the files you want to change and record the info 
 
 Finally, run `git push` to send the new files and all the information in the commit to the "remote" repository on 
 
-##### Connecting the online repo to your computer
+##### Making and recording changes
+OK let's continue simulating the "real" scenario. Your (favourite) collaborator has just sent the correct dataset and you need to update all the results. You can do that easily (because you wrote reusable code :D) but don't want to throw away the original results in case you want to refer back to them later.
 
+Because those files were pushed to git, that info will be stored as long as the repo exists. Note, that is why we never upload personal/sensitive/private data to repos that might later be made public. Or equally, we don't make public any repos that previously contained data that could be found in the commit history.
 
-##### Connecting the online repo to your computer
+So, go to the notebook again. Read in the correct dataset, re-run the code and save new outputs. No need to change the names of the output files!
+
+Then, return to Visual Studio Code and the git bash terminal window, and send the changes to github by adding, committing and pushing.
+
+##### Viewing changes on github
+Go to the repo online and see what changes you can find:
+- do the files look different?
+- Can you find the list of previous commits?
+- Can you find the changes that were made during the last commit?
+
+##### Summary
+Wowzers! That could have been a disaster! But because we had traceable, reusable code, it was easy to do everything again. And because we version controlled everything with git, we know exactly what the results look like with both datasets, and can look at both versions to understand differences. And this is only part 1! Huzzah!
 
 
 
