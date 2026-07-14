@@ -15,3 +15,8 @@ If you want to further test the flexibility of your work, try running a differen
 ## Takeaway
 Once you have set up code that works and is written flexibly, it becomes much easier, quicker, and less risky to re-run analysis. This is a huge benefit of using code-based analyses and is a common incentive for wanting to learn to code.
 
+## Follow-up
+We have see how code and scripts can be used to trace and re-run analyses efficiently. But there are a couple of problems we haven't discussed: what if we want to make lots of changes to our code without losing all previous versions? We don't want code_v1, v2_final, v3_final_final etc. And what if we want to collaborate with colleagues and re-use the same code?
+
+This is what we discuss next week.
+
