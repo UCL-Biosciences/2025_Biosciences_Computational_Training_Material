@@ -1,4 +1,4 @@
-### Exercise 1 - Setting up a github repository (~75 mins)
+### Exercise 1 - Setting up a github repository (60-75 mins)
 #### Making a repo online (5 mins)
 First, we will **make a git repository** on the github webpage
 1. Navigate to [github.com](https://github.com/) and login (or create an account)
