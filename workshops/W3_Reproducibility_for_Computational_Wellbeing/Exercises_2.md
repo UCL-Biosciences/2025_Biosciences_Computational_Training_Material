@@ -1,11 +1,61 @@
 ### Exercise 2 - Environments, Documenting, and Sharing your Project (65 mins)
 
-#### Snapshot it (25 mins)
-Code that runs fine today can quietly stop working in six months, or on someone else's laptop right now — not because the code changed, but because the packages underneath it did. Fixing this means writing down exactly what your environment looked like when everything worked.
+#### Snapshot it using environments (25 mins)
+Most projects require a set of code libraries in order to run, which means a project you started on your laptop, won't necessarily work on your desktop or on your colleague's computer. And code that runs fine today can quietly stop working in six months — not because the code changed, but because the packages underneath it did. And sometimes, subtle changes as packages are upgraded can have meaningful impacts on your results! So you might have a different set of results and no idea why!
 
-1. If you don't already have one, create a conda environment for your project and install what you need.
-2. Export it: `conda env export > environment.yml` (or `pip freeze > requirements.txt` if you're not using conda).
-3. Commit the environment file to your repo.
+Fixing this means writing down exactly what your environment looked like when everything originally worked.
+
+##### Conda environments
+Conda is a system for managing packages. It is a package manager - it has a big archive of packages that you can search for and download. Includes python but also R, CL bioinformatics etc. It is also an environment manager. You can use it to make separate project workspaces called "environments". Using separate environments means you can have different versions of packages for different projects. Is surprisingsly essential when working with python libraries.
+
+So, conda is for 1. installing packages and 2. managing reproducible environments.
+
+**Create an environment**
+
+`conda create -n project-dna pandas=2.3.3`
+
+**Activate it**. To work with an environment, it has to be activated. You can also deactivate it with `conda deactivate`.
+
+`conda activate project-dna`
+
+**Install packages**.
+First install a general python package:
+
+`conda install jupyter`
+
+Then look up a package online relevant to your project and install it:
+
+`conda install <YOUR PACKAGE HERE>`
+
+**Take a snapshot**. Export the list of packages in the environment and save it to file:
+
+`conda export --file=project-dna.yaml`
+
+**Add the file to your github repository**. You can add it directly via the github website or use the command line. If using the command line, make sure your terminal is in the right folder by using `Open Folder` in Visual Studio Code or typing in a terminal window:
+
+```
+pwd # to print working directory and find out where you are
+cd ./path/to/your/repo # change directory if you 
+```
+
+To add files to repo using the command line:
+
+```
+git add project-dna.yaml # add this to your local repo's "staging area", getting ready to go out on the big stage (aka github)
+git commit -m "" # add a message to explain what you are doing
+git push # send the changes to your "remote" github repository
+```
+
+**Test it** Could we run the workshops from week 1 using this workbook? What do we need to install? Can you make it happen? Stretch goal...
+
+
+
+
+
+
+
+
+
 
 **Partner check**: swap repos with someone nearby. Can they clone your repo, rebuild your environment from the file you just committed, and get your code running — without asking you anything? If not, what's missing?
 
