@@ -102,7 +102,7 @@ This can take a couple of minutes to come through. While you wait, look at your 
 #### Creating a branch on your partner's repo (5 mins)
 We're about to send our work and changes to a colleague's repo. If we send it directly, it risks messing up what's already there — especially if the code works and is actually being used or relied on by others. You can't go messing up someone's working pipeline!
 
-It's safer to send our changes to a secure, separate working copy first, before anything gets added to the main version. So we make a working copy of the repo — called a branch — and send our changes there instead of straight to main. The repo owner can then review the changes and decide whether to accept them or not, without main ever being at risk.
+It's safer to send our changes to a secure, separate working copy first, before anything gets added to the main version. So we make a working copy — called a branch — of all the contents in the repo and send our changes there instead of straight to the "main" branch. The repo owner can then review the changes and decide whether to accept them or not, without the main content being at risk.
 
 1. On your partner's repo page, click the branch dropdown (usually says `main`) → type a new branch name, e.g. `<your-name>-data` → `Create branch`
 2. Make sure the branch selector now shows your new branch, not main
@@ -110,7 +110,7 @@ It's safer to send our changes to a secure, separate working copy first, before 
 #### Adding your files (10 mins)
 Still on your partner's repo, on your new branch:
 1. Click `Add file` → `Upload files`. `Add file` is to the left of the big green `Code` button and sometimes minimises to a `+` symbol
-2. Drag in your notebook, dataset, and output files from last week (and earlier, if relevant)
+2. Drag in your notebook, dataset, and output files from last week
 3. Scroll down, add a short commit message, confirm you're committing to your branch (not main), click Commit changes
 
 #### Opening and merging the Pull Request (15 mins)
@@ -123,6 +123,8 @@ It's safer to have a formal review step before anything joins main — a chance 
 **As Repo Owner**: go to your own repo's `Pull requests` tab, open your partner's PR, look at `Files changed` to see exactly what's being added, then click `Merge pull request`.
 
 By the end, both repos should contain two (or more) datasets' worth of notebooks/data/results.
+
+Finally, explore the commit history of your repository. Make sure you can trace back the changes you made when uploading and editing files, as well as when your partner uploaded their own data. Could you figure out the history of the project if someone (Reviewer 3) asked you an awkward question? How does this compare to other methods of version control?
 
 #### Wrap-up discussion (5 mins)
 
