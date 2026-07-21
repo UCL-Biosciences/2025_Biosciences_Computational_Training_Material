@@ -9,7 +9,7 @@
 ## Plan
 | Section | Duration |
 |---------|----------|
-| Intro | 10 mins |
+| Intro | 15 mins |
 | Exercise 1 | 45 mins |
 | Break | 15 mins |
 | Exercise 1 (cont.) | 15-30 mins |
