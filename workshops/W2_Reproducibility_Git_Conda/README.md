@@ -18,7 +18,30 @@
 | Exercise 2 (cont.) | 15-30 mins |
 | Wrap up | 15 mins |
 
-## GitHub
+## Introduction
+
+### Version control and collaboration - why bother with git?
+Today is about version control and collaborating on shared projects. We start by talking through some relevant challenges we face as researchers and how we might be able to solve them.
+
+### Participant practice
+Let's talk about participant experience of version control and collaboration using this menti quiz. [Link](https://www.menti.com/albhakdq3wb9) and QR code:
+
+<img width="200" height="200" alt="qr code for menti - version control and collab" src="https://github.com/user-attachments/assets/f1a91718-202e-426d-a784-06a30dca7796" />
+
+The questions (mostly in case menti doesn't work):
+- How do you manage version control in your day-to-day work?
+- What challenges do you face related to version control?
+- What do you do to manage collaboration on shared files?
+- What problems arise when collaboration isn’t smooth?
+
+### Discuss responses
+What did the participants say? How many challenges do we face? And how many of them have effective, accessible solutions?
+
+Research code and analysis rarely gets done once and left alone. When you come back to it months later, a collaborator needs to touch it, or a supervisor or reviewer asks "what exactly did you do here?", you encounter two major sets of problems:
+- **You lose track of your own work over time** — the final_v2_ACTUALLY_FINAL.py problem. No way to see what changed, why, or to safely revert. Can be difficult and time-consuming to pick out parts of an earlier version.
+- **Multiple people can't work on the same thing without collisions** — overwritten files, no record of who did what, no way to review new changes by a colleague.
+
+### Git
 
 Before getting to GitHub, let's see how a collaboration flow works on MS Word
 
@@ -29,8 +52,11 @@ When using git there are a couple of differences.
 - Each set of changes contain a description that's kept in the history (who made the change, why, what and when).
 - You can contribute to any public repository, but only the owners of that repository can accept (merge) these changes.
 - The review process happens on a "Pull request".
- 
-📦 Our repository for today: [`UCL-Biosciences/FIXME202405-arcgit-workshop`](https://github.com/...FIXME/)
+
+Benefits of using git:
+- Version control – easily revisit earlier versions and see changes
+- Collaboration – organise work by multiple people on a single document
+-	Builds on the traceable, reusable coding discussion last week. Also feeds into FAIR and reproducible science, as we will discuss later.
 
 ## Exercises
 
