@@ -60,7 +60,7 @@ Benefits of using git:
 
 ## Exercises
 
-We'll break this down into two exercises. First for setting a repo up for managing a project, then for collaboration.
+We'll break this down into two exercises. First for setting a repo up for managing a project, then for collaboration. Participants will use the same files from last week - same data, code and outputs. "Your own data" refers to your files from last week.
 
 The [first](https://github.com/UCL-Biosciences/Biosciences-Computational-Training/blob/prep-2026/workshops/W2_Reproducibility_Git_Conda/Exercise_1.md) will be done individually. You'll set up a repository, add your files and make some recorded changes.
 
