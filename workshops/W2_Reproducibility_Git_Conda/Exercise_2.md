@@ -1,4 +1,4 @@
-### Exercise 2 - Collaborating via GitHub (60 mins)
+### Exercise 2 - Collaborating via GitHub (45-60 mins)
 #### Finding a group (5 mins)
 Form a group with someone working on a different dataset to yours. Groups can be 2 or more people, as long as there are people working on at least 2 different datasets.
 
