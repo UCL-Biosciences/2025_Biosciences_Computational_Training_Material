@@ -39,46 +39,30 @@ The questions (mostly in case menti doesn't work):
 HPCs address some of these problems:
 - bigger computers
 - jobs run independently so you can walk away or turn off your laptop
-- laptop memory isn't needed for big processes so you can use it normallypar
+- laptop memory isn't needed for big processes so you can use it normally
 
 ## Exercises overview
 
-**Exercise 1 — cluster setup** First we will get ourselves onto the cluster and set up everything we need - code, environment and data.
+**Exercise 1 — cluster setup** [First](https://github.com/UCL-Biosciences/Biosciences-Computational-Training/blob/prep-2026/workshops/W5_HPCs_UCL/Exercise1_Setup.md) we will get ourselves onto the cluster and set up everything we need - code, environment and data.
 
-### Logging in and setting up a directory
-First, we will log in following these [instructions](https://github-pages.arc.ucl.ac.uk/hpc-intro/11-connecting/index.html) and [have a look around](https://github-pages.arc.ucl.ac.uk/hpc-intro/12-cluster/index.html). Make a project folder and move to it:
+**Exercise 2 — Submit a job.** Now we will look at [HPC nodes](https://github-pages.arc.ucl.ac.uk/hpc-intro/12-cluster/index.html#nodes) and the difference between login and compute nodes.
 
-```
-mkdir my_project_dir
-cd my_project_dir
-```
+Then we will look at [job scripts](https://github-pages.arc.ucl.ac.uk/hpc-intro/13-scheduler/index.html), which is how we tell the cluster what we want to do.
 
-### Clone your git repository
-Then clone your repository: `git clone https://github.com/YOUR-REPO-PATH` (remember to change the path to your repository).
+Finally, we will look at how we can submit the python code we wrote in week 1 as a job. First, [convert the notebook to a python file](https://code.visualstudio.com/docs/python/jupyter-support-py#_convert-jupyter-notebooks-to-python-code-file). Have a look at the python (`.py`) file - how is it different to the notebook? Why would these differences be needed in order to submit the code as a job on an HPC?
 
-### Make an environment using the conda "module"
-We will discuss how programmes are setup on HPCs as "modules" and how we can use them following [these notes](https://github-pages.arc.ucl.ac.uk/hpc-intro/15-modules/index.html).
-
-We will use the conda module to create an environment that matches the one we set up locally:
+To run the python script (`.py`) from within the job script (`.sh`), we add this to your job script:
 
 ```
-COMMANDS
-```
-### Copy in some data
-Find the RDSS file location and copy some data to a data folder:
+## load modules
 
-```
-mkdir -p data/input
-cp /PATH/TO/RDSS/PROJECT data/input
+## activate your environment
+
+## run the code
+python /path/to/script.py
 ```
 
-Now you should have all the code, libraries and data needed to run your analysis on the HPC!
 
-
-
-**Exercise 2 — Submit a job.** Bring your data onto the cluster from RDSS, then work through the two prepared scripts: the Python script to run, and the SGE submission script that describes it to the scheduler. We walk the submission script line by line — the resource requests (`h_rt`, `mem`), the working directory, activating the environment, the call to run the script — because this is the genuinely new concept of the day. Submit with `qsub`, watch it in the queue with `qstat`, then retrieve the results back to your own machine.
-
-A pre-provisioned checkpoint copy of the project (repo + environment + data, ready to go) is available to `cd` into, so anyone whose own setup failed at an earlier step can still reach the batch-submission payoff.
 
 ## Wrap-up
 
