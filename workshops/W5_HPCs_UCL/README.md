@@ -49,7 +49,7 @@ HPCs address some of these problems:
 
 Then we will look at [job scripts](https://github-pages.arc.ucl.ac.uk/hpc-intro/13-scheduler/index.html), which is how we tell the cluster what we want to do.
 
-Finally, we will look at how we can submit the python code we wrote in week 1 as a job. First, [convert the notebook to a python file](https://code.visualstudio.com/docs/python/jupyter-support-py#_convert-jupyter-notebooks-to-python-code-file). Have a look at the python (`.py`) file - how is it different to the notebook? Why would these differences be needed in order to submit the code as a job on an HPC?
+Now, we will submit the python code we wrote in week 1 as a job. First, [convert the notebook to a python file](https://code.visualstudio.com/docs/python/jupyter-support-py#_convert-jupyter-notebooks-to-python-code-file). Have a look at the python (`.py`) file - how is it different to the notebook? Why would these differences be needed in order to submit the code as a job on an HPC?
 
 To run the python script (`.py`) from within the job script (`.sh`), we add this to your job script:
 
@@ -62,10 +62,20 @@ To run the python script (`.py`) from within the job script (`.sh`), we add this
 python /path/to/script.py
 ```
 
-
+Finally, download the output and check it on your local computer. You can download it in Visual Studio Code by right-clicking on a file and selecting `Download` - simples!
 
 ## Wrap-up
+To finish, let's trace your project all the way through, because the weeks were really one story:
 
-We return to the "who does this help?" table from Week 3, extended one more time via an anonymous Menti check-in: for the work you actually do, **when would you reach for an HPC — and who does that help: yourself, your collaborators, the wider community?** The cumulative table is revealed at the end, tying the session's mechanics back to the reproducibility and data-management themes running through the whole course.
+Week 1 — Coding: you took raw data in, wrangled it, made a figure, and saved your results — a working analysis.
+Week 2 — Version control & collaboration: you tracked your changes and shared your work, turning a file on your laptop into a repository others can see and build on.
+Week 3 — Reproducibility: you made it something anyone can rerun — an environment they can rebuild, data looked after in RDSS, a project someone else could actually pick up.
+Week 4 — Scaling up: you took that same project onto a cluster and ran it at a scale your laptop couldn't manage.
 
-The closing note is honest: today's job was a toy. But you now hold the full path — connect, move your project, build your environment, submit, retrieve — so that when a real wall hits, the cluster is a tool you already know how to use.
+Each week solved a problem the week before created. Code needs versioning; versioned code needs a reproducible environment; a reproducible environment is what lets your work run somewhere bigger. You leave with a template project that holds all of it.
+
+Please complete post-training survey! Link to be added.
+
+
+
+
