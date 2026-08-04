@@ -66,7 +66,7 @@ We'll break this down into two exercises. First for setting a repo up for managi
 
 The [first](https://github.com/UCL-Biosciences/Biosciences-Computational-Training/blob/prep-2026/workshops/W2_VersionControl_Collaboration_Git/Exercise_1.md) will be done individually. You'll set up a repository, add your files and make some recorded changes.
 
-For the [second exercise](https://github.com/UCL-Biosciences/Biosciences-Computational-Training/new/prep-2026/workshops/W2_VersionControl_Collaboration_Git/Exercise_2.md), you'll work in pairs/groups to see how we can use github to collaborate on projects.
+For the [second exercise](https://github.com/UCL-Biosciences/Biosciences-Computational-Training/blob/prep-2026/workshops/W2_VersionControl_Collaboration_Git/Exercise_2.md), you'll work in pairs/groups to see how we can use github to collaborate on projects.
 
 ## Wrap-up discussion
 
