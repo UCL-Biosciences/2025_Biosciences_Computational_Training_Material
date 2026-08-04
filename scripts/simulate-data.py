@@ -3,6 +3,10 @@
 Generate synthetic teaching datasets for the UCL Biosciences Computational
 Training course.
 
+Written by Claude 02 08 26
+
+Run in carpentries environment: https://raw.githubusercontent.com/carpentries/workshop-template/refs/heads/gh-pages/data/carpentries_environment.yml 
+
 Four domains (genomics, imaging, neuro, structural), all sharing a common
 schema so that one set of Week 1 materials works for any of them:
 
