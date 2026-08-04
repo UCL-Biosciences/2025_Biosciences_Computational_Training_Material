@@ -6,7 +6,7 @@ You'll both do every step below — each of you is Repo Owner (for your own repo
 
 #### Giving each other access (5 mins)
 
-Go to your own repo → Settings → Collaborators → Add people. Search your partner's GitHub username and send the invite.
+Go to your own repo → Settings → Collaborators → Add people. Search your partner's GitHub username, give them "Maintain" rights, and send the invite.
 Check your email / GitHub notifications bell for your partner's invite and accept it.
 
 This can take a couple of minutes to come through. While you wait, look at your collaborators repo. Does it look the same as yours? How is it different?
