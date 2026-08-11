@@ -77,7 +77,7 @@ Why might a branch + PR be safer than uploading straight to main, even without a
 And crucially, git requires some learning; do you think it will be worth it based on what you've seen so far?!
 
 ## Setup Back-up
-If you are having problems with Visual Studio Code, try the [web version](https://vscode.dev/). Let it see the files on your machine and it works in a similar way.  
+If you are having problems with Visual Studio Code, try the [web version](https://vscode.dev/). Let it see the files on your machine and it works in a similar way. If VSC web doesn't work, pair up with someone and work together on their machine.
 
 
 ## What's next?
