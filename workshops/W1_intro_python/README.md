@@ -23,7 +23,9 @@ Some examples
 - Open Visual Studio Code. Click on `Open Folder` and navigate to where you want to work. Note we will revisit this folder throughout the course.  It becomes a training project folder.
 - Right-click in the Explorer panel and make a new folder called `data`. Download `molerat_v1_1k.csv` from [here](https://github.com/UCL-Biosciences/Biosciences-Computational-Training/blob/prep-2026/data/molerat_v1_1k.csv) and use a file explorer to drag it to the correct folder in Visual Studio Code.
 - Right-click in the Explorer panel again and make a new folder called `notebooks`. Right-click and make a new file called ~ `01_python_intro.ipynb`.
-- To access python and packages, 
+- To access python and packages, need to find the carpentries kernel. either click on the kernel button in the top right or `Ctrl + Shift + P` and search for `Python: select interpreter`. Then click on the carpentries environment. Note, this should have been set up already.
+
+Now you should be able to run jupyter notebooks in VSC.
 
 ## Content
 
