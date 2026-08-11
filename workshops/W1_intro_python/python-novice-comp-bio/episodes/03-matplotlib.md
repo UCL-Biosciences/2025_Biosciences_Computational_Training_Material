@@ -151,6 +151,10 @@ Matplotlib from the file name ending we specify; here PNG from
 'activity.png'. Matplotlib supports many different graphics
 formats, including SVG, PDF, and JPEG.
 
+## Bonus Time
+Don't forget to see [here](https://github.com/UCL-Biosciences/Biosciences-Computational-Training/blob/prep-2026/workshops/W1_intro_python/python-novice-comp-bio/episodes/bonus-exercise.md) for the surprise bonus activity!
+
+
 :::::::::::::::::::::::::::::::::::::::::  callout
 
 ## Importing libraries with shortcuts
