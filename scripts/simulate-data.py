@@ -7,10 +7,18 @@ Written by Claude 02 08 26
 
 Run in carpentries environment: https://raw.githubusercontent.com/carpentries/workshop-template/refs/heads/gh-pages/data/carpentries_environment.yml 
 
-Four domains (genomics, imaging, neuro, structural), all sharing a common
-schema so that one set of Week 1 materials works for any of them:
+The default dataset is a naked mole-rat colony study: one row per animal,
+with role as the grouping variable and colony as the batch equivalent.
+This is the dataset the whole cohort works with.
 
-    sample_id | group | batch | measure_1 | <8-10 domain columns> | target_a | target_b
+Four further domains (genomics, imaging, neuro, structural) are kept for
+reuse if a separate dataset is ever needed. All share a common schema, so
+the same Week 1 materials work for any of them:
+
+    sample_id | <grouping> | <batch> | <8-11 measured columns> | target_a | target_b
+
+For the mole-rat dataset those first three are sample_id, role, colony.
+The other domains use the generic names group and batch.
 
 Two outcome columns, for the Week 5 contrast:
     target_a  driven by a straightforward additive combination of three
@@ -25,7 +33,7 @@ Two outcome columns, for the Week 5 contrast:
               and quadratic terms to the regression also recovers it - the
               point is that ML did not need to be told.
 
-Two versions per domain:
+Two versions per dataset:
     v1  the dataset participants build their notebook against
     v2  the same experiment run again: identical schema, same groups, same
         batch labels, same column order. New sample IDs, rows in a different
@@ -39,10 +47,11 @@ Nothing here is biologically meaningful. It is shaped to be recognisable,
 not to be true.
 
 Usage:
-    python make_teaching_data.py                     # 1k and 10k, all domains
-    python make_teaching_data.py --domain neuro      # just one domain
-    python make_teaching_data.py --rows 50000000     # one large file per domain/version
-    python make_teaching_data.py --rows 1000 --rows 10000 --rows 50000000
+    python simulate-data.py                       # mole-rat, 1k and 10k
+    python simulate-data.py --domain neuro        # one of the other domains
+    python simulate-data.py --all-domains         # every domain
+    python simulate-data.py --rows 50000000       # large file for the HPC session
+    python simulate-data.py --rows 1000 --rows 10000 --rows 50000000
 """
 
 import argparse
@@ -52,18 +61,22 @@ import numpy as np
 import pandas as pd
 
 # --------------------------------------------------------------------------
-# Shared schema - identical across all four domains and both versions
+# Shared schema - the same shape for every domain and both versions
 # --------------------------------------------------------------------------
 
 ID_COL = "sample_id"
-GROUP_COL = "group"
-BATCH_COL = "batch"
-DEMO_COL = "measure_1"          # generic column, same name in every domain
 TARGET_A = "target_a"
 TARGET_B = "target_b"
 
+# Default column names and labels for the grouping and batch variables.
+# A domain may override any of these with its own "group_col", "batch_col",
+# "groups", "group_p" and "batches" keys.
+GROUP_COL = "group"
+BATCH_COL = "batch"
 GROUPS = ["Control", "TreatmentA", "TreatmentB"]
 BATCHES = ["B01", "B02", "B03"]
+
+DEFAULT_DOMAIN = "molerat"
 
 TARGET_AUC_SCALE = 1.6          # target_a: tuned so a simple model lands ~0.8 AUC
 INTERACTION_W = 2.2             # target_b: strength of the two-column interaction
@@ -82,16 +95,66 @@ V2_SHIFT = 0.45                 # how far v2 moves, in SDs; bigger = more
 #   poisson   : (mean,)
 #   beta      : (a, b, scale)
 #
+# "group_col"    overrides the column name for the grouping variable
+# "batch_col"    overrides the column name for the batch variable
+# "groups"       overrides the default group labels (optional)
+# "group_p"      relative frequency of each group (optional, default equal)
+# "batches"      overrides the default batch labels (optional)
 # "signal"       columns driving target_a, with weights
 # "group_effect" columns whose mean differs between treatment groups
 # "interaction"  the two columns whose concordance drives target_b
-# "optimum"      the column with an intermediate optimum, driving target_b
+# "optimum"      the column with an intermediate optimum, driving target_b.
+#                Must be a roughly symmetric column (normal, not lognormal).
+#                The optimum is symmetric in ranks, so on a skewed column it
+#                leaves a real linear correlation that a t-test would find,
+#                which defeats the point of target_b.
 #
 # interaction/optimum deliberately use columns that do NOT drive target_a,
 # so the two outcomes are independent structures.
 # --------------------------------------------------------------------------
 
 DOMAINS = {
+    # ---------------------------------------------------------------------
+    # The default dataset. One row per animal in a naked mole-rat colony
+    # study, with the animal's role in the colony and which colony it came
+    # from.
+    #
+    # Role frequencies are deliberately unequal - mostly workers, few
+    # queens - which is closer to a real colony and gives Week 1 an
+    # unbalanced grouping variable to handle.
+    # ---------------------------------------------------------------------
+    "molerat": {
+        "unit": "animal",
+        "prefix": "NMR",
+        "group_col": "role",
+        "batch_col": "colony",
+        # Ordered smallest-to-largest: the per-group shift is applied as a
+        # gradient along this list, so the order is meaningful.
+        "groups": ["Worker", "Soldier", "Breeder", "Queen"],
+        "group_p": [0.58, 0.26, 0.12, 0.04],
+        "batches": ["Colony-A", "Colony-B", "Colony-C",
+                    "Colony-D", "Colony-E"],
+        "columns": {
+            "body_mass_g":              ("normal",    (35.0, 6.0), 1),
+            "age_months":               ("lognormal", (4.0, 0.5), 0),
+            "resting_metabolic_rate":   ("lognormal", (-1.4, 0.3), 3),
+            "body_temp_c":              ("normal",    (32.2, 0.9), 1),
+            "hypoxia_survival_min":     ("lognormal", (2.9, 0.45), 1),
+            "hyaluronan_mda":           ("normal",    (6.8, 1.1), 2),
+            "cortisol_ng_ml":           ("lognormal", (2.2, 0.5), 2),
+            "incisor_wear_score":       ("beta",      (3, 7, 1.0), 3),
+            "chirps_per_hour":          ("poisson",   (24,), 0),
+            "grooming_events_day":      ("poisson",   (11,), 0),
+            "telomere_length_kb":       ("normal",    (19.5, 3.2), 2),
+        },
+        "signal": {"hypoxia_survival_min": 1.1,
+                   "resting_metabolic_rate": -0.9,
+                   "telomere_length_kb": 0.8},
+        "group_effect": {"body_mass_g": 0.8, "cortisol_ng_ml": -0.6},
+        "interaction": ("hyaluronan_mda", "age_months"),
+        "optimum": "body_temp_c",
+    },
+
     "genomics": {
         "unit": "sample",
         "prefix": "GEN",
@@ -244,10 +307,16 @@ def build_frame(domain, n, version, seed):
     offset = 0 if version == 1 else 500_000
     ids = [f"{cfg['prefix']}-{i + offset:06d}" for i in range(1, n + 1)]
 
-    group = rng.choice(GROUPS, n)
-    batch = rng.choice(BATCHES, n)
+    group_col = cfg.get("group_col", GROUP_COL)
+    batch_col = cfg.get("batch_col", BATCH_COL)
+    groups = cfg.get("groups", GROUPS)
+    batches = cfg.get("batches", BATCHES)
+    group_p = cfg.get("group_p")
 
-    df = pd.DataFrame({ID_COL: ids, GROUP_COL: group, BATCH_COL: batch})
+    group = rng.choice(groups, n, p=group_p)
+    batch = rng.choice(batches, n)
+
+    df = pd.DataFrame({ID_COL: ids, group_col: group, batch_col: batch})
 
     raw = {}
     for name, (dist, params, dec) in cfg["columns"].items():
@@ -257,8 +326,8 @@ def build_frame(domain, n, version, seed):
         if name in cfg["group_effect"]:
             effect = cfg["group_effect"][name]
             spread = np.std(vals)
-            for gi, g in enumerate(GROUPS):
-                shift = effect * spread * (gi - (len(GROUPS) - 1) / 2)
+            for gi, g in enumerate(groups):
+                shift = effect * spread * (gi - (len(groups) - 1) / 2)
                 vals[group == g] += shift
 
             # v2 moves the whole column, so regenerated figures visibly change.
@@ -284,9 +353,6 @@ def build_frame(domain, n, version, seed):
     logit_b -= logit_b.mean()
     target_b = (rng.random(n) < 1.0 / (1.0 + np.exp(-logit_b))).astype(int)
 
-    # Generic demo column, same name in every domain.
-    df[DEMO_COL] = np.round(rng.normal(100.0, 15.0, n), 2)
-
     for name, (dist, params, dec) in cfg["columns"].items():
         vals = np.round(raw[name], dec)
         df[name] = vals.astype("int64") if dec == 0 else vals
@@ -306,7 +372,8 @@ def build_frame(domain, n, version, seed):
 # Driver
 # --------------------------------------------------------------------------
 
-SEEDS = {"genomics": 11, "imaging": 22, "neuro": 33, "structural": 44}
+SEEDS = {"molerat": 7, "genomics": 11, "imaging": 22,
+         "neuro": 33, "structural": 44}
 
 
 def size_label(n):
@@ -340,14 +407,20 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--outdir", default="data")
     ap.add_argument("--domain", choices=sorted(DOMAINS), action="append",
-                    help="restrict to one or more domains (default: all)")
+                    help=f"which dataset to generate; repeatable "
+                         f"(default: {DEFAULT_DOMAIN})")
+    ap.add_argument("--all-domains", action="store_true",
+                    help="generate every domain, not just the default")
     ap.add_argument("--rows", type=int, action="append",
                     help="row counts to generate; repeatable "
                          "(default: 1000 and 10000). Use a large value here "
                          "to produce the oversized file for the HPC session.")
     args = ap.parse_args()
 
-    domains = args.domain or sorted(DOMAINS)
+    if args.all_domains:
+        domains = sorted(DOMAINS)
+    else:
+        domains = args.domain or [DEFAULT_DOMAIN]
     sizes = args.rows or [1000, 10000]
 
     for p in generate(args.outdir, domains, sizes):
