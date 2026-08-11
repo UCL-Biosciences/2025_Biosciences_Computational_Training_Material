@@ -108,13 +108,13 @@ import numpy as np
 # Study design
 # --------------------------------------------------------------------------
 
-ANIMALS = 1000
+ANIMALS = 300
 SESSIONS = 30
 
 # Proportions of the colony. Breeders always occupy the first rows;
 # workers and soldiers are shuffled together after them.
-BREEDER_FRAC = 0.10
-SOLDIER_FRAC = 0.30
+BREEDER_FRAC = 0.33
+SOLDIER_FRAC = 0.33
 # workers take the remainder
 
 # Mean activity counts per session for each group. These set how far apart
