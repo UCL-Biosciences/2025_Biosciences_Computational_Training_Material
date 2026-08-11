@@ -51,16 +51,6 @@ Once we've imported the library, we can ask the library to read our data file fo
 numpy.loadtxt(fname='../data/molerat_activity_v1.csv', delimiter=',') # note this assumes notebook lives in a notebook dir, same level as data dir, and needs `../data`
 ```
 
-```output
-array([[ 1.,  0.,  2., ...,  4.,  6.,  3.],
-       [ 4.,  3.,  4., ...,  6.,  2.,  7.],
-       [ 7.,  8.,  4., ...,  4.,  3.,  2.],
-       ...,
-       [12., 18., 11., ..., 19., 14., 12.],
-       [ 6., 10., 10., ...,  9.,  8., 16.],
-       [28., 27., 22., ..., 27., 23., 28.]], shape=(1000, 30))
-```
-
 The expression `numpy.loadtxt(...)` is a
 [function call](../learners/reference.md#function-call)
 that asks Python to run the [function](../learners/reference.md#function) `loadtxt` which
@@ -104,16 +94,6 @@ we can print the variable's value:
 
 ```python
 print(data)
-```
-
-```output
-[[ 1.  0.  2. ...  4.  6.  3.]
- [ 4.  3.  4. ...  6.  2.  7.]
- [ 7.  8.  4. ...  4.  3.  2.]
- ...
- [12. 18. 11. ... 19. 14. 12.]
- [ 6. 10. 10. ...  9.  8. 16.]
- [28. 27. 22. ... 27. 23. 28.]]
 ```
 
 Now that the data are in memory,
@@ -166,10 +146,6 @@ With the following command, we can see the array's [shape](../learners/reference
 print(data.shape)
 ```
 
-```output
-(1000, 30)
-```
-
 The output tells us that the `data` array variable contains 1000 rows and 30 columns. When we
 created the variable `data` to store our arthritis data, we did not only create the array; we also
 created information about the array, called [members](../learners/reference.md#member) or
@@ -187,19 +163,11 @@ we will need to use two indices to refer to one specific value:
 print('first value in data:', data[0, 0])
 ```
 
-```output
-first value in data: 0.0
-```
-
 ```python
-print('middle value in data:', data[499, 14])
+print('middle value in data:', data[149, 14])
 ```
 
-```output
-middle value in data: 11.0
-```
-
-The expression `data[499, 14]` accesses the element at row 500, column 15. While this expression may
+The expression `data[149, 14]` accesses the element at row 150, column 15. While this expression may
 not surprise you,
 `data[0, 0]` might.
 Programming languages like Fortran, MATLAB and R start counting at 1
@@ -247,13 +215,6 @@ for the first four mole-rats (rows) like this:
 print(data[0:4, 0:10])
 ```
 
-```output
-[[ 1.  0.  2.  3.  2.  4.  3.  4.  0.  4.]
- [ 4.  3.  4.  5.  4.  5.  6.  4.  6.  7.]
- [ 7.  8.  4.  7.  7.  4.  7.  6.  7.  8.]
- [ 4.  5.  6.  6.  7.  5. 12.  5.  6.  7.]]
-```
-
 The [slice](../learners/reference.md#slice) `0:4` means, "Start at index 0 and go up to,
 but not including, index 4". Again, the up-to-but-not-including takes a bit of getting used to,
 but the rule is that the difference between the upper and lower bounds is the number of values in
@@ -263,14 +224,6 @@ We don't have to start slices at 0:
 
 ```python
 print(data[5:10, 0:10])
-```
-
-```output
-[[ 7.  3.  2.  8.  4.  4.  2.  3.  5.  3.]
- [ 8.  4.  4.  5.  4.  7.  6.  7.  6.  3.]
- [ 3.  4.  8.  7.  5.  4.  7.  6.  7.  5.]
- [ 4.  3.  3. 10.  7.  8.  7.  7.  3.  7.]
- [ 8.  5.  6.  3.  8. 11.  7.  4.  5.  3.]]
 ```
 
 We also don't have to include the upper and lower bound on the slice.  If we don't include the lower
@@ -286,13 +239,6 @@ print(small)
 
 The above example selects rows 0 through 2 and columns 26 through to the end of the array.
 
-```output
-small is:
-[[2. 4. 6. 3.]
- [6. 6. 2. 7.]
- [4. 4. 3. 2.]]
-```
-
 ## Analyzing data
 
 NumPy has several useful functions that take an array as input to perform operations on its values.
@@ -301,10 +247,6 @@ all days, for example, we can ask NumPy to compute `data`'s mean value:
 
 ```python
 print(numpy.mean(data))
-```
-
-```output
-17.276233333333334
 ```
 
 `mean` is a [function](../learners/reference.md#function) that takes
@@ -350,12 +292,6 @@ print('standard deviation:', stdval)
 Here we've assigned the return value from `numpy.max(data)` to the variable `maxval`, the value
 from `numpy.min(data)` to `minval`, and so on.
 
-```output
-maximum activity: 49.0
-minimum activity: 0.0
-standard deviation: 7.769555659466991
-```
-
 :::::::::::::::::::::::::::::::::::::::::  callout
 
 ## Mystery Functions in IPython
@@ -388,19 +324,11 @@ NMR_0 = data[0, :] # 0 on the first axis (rows), everything on the second (colum
 print('maximum activity for naked mole-rat 0:', numpy.max(NMR_0))
 ```
 
-```output
-maximum activity for naked mole-rat 0: 8.0
-```
-
 We don't actually need to store the row in a variable of its own.
 Instead, we can combine the selection and the function call:
 
 ```python
 print('maximum activity for naked mole-rat 2:', numpy.max(data[2, :]))
-```
-
-```output
-maximum activity for naked mole-rat 2: 9.0
 ```
 
 What if we need the maximum activity for each naked mole-rat over all days (as in the
@@ -418,74 +346,10 @@ To support this functionality, most array functions allow us to specify the axis
 print(numpy.max(data, axis=1))
 ```
 
-```output
-[ 8.  8.  9. 12. 12.  9. 12.  8. 10. 11.  9. 12. 12. 13.  9.  8. 11.  9.
-  8.  9.  9.  9. 11. 10.  9. 10.  8. 11. 12. 14. 11.  8.  8. 12. 13. 13.
-  8. 11. 11. 10. 10.  8.  9.  8. 11. 10.  7.  9. 11. 12. 13. 11.  7. 10.
- 10.  9. 10.  9. 12. 11.  8. 14. 14.  9.  9. 12. 13.  9. 11. 10. 11.  9.
-  9.  9. 11. 10. 10. 11.  8.  8. 10. 11. 12. 11.  9. 13. 10.  8.  9. 11.
- 11. 10. 11.  9. 10. 11.  9.  9. 10. 10. 16. 19. 39. 25. 41. 32. 23. 38.
- 32. 21. 32. 31. 13. 19. 18. 27. 30. 30. 31. 31. 35. 14. 18. 33. 19. 26.
- 33. 19. 31. 31. 25. 41. 33. 31. 30. 37. 35. 23. 21. 27. 39. 31. 26. 21.
- 25. 22. 24. 25. 21. 30. 31. 37. 21. 33. 19. 31. 18. 24. 32. 36. 36. 34.
- 19. 28. 22. 23. 25. 27. 16. 15. 21. 35. 33. 32. 19. 33. 31. 24. 44. 31.
- 36. 38. 20. 20. 19. 15. 31. 18. 32. 32. 21. 20. 33. 25. 31. 34. 20. 35.
- 33. 21. 30. 21. 37. 31. 31. 22. 27. 29. 35. 34. 18. 20. 33. 33. 27. 28.
- 34. 25. 39. 19. 39. 28. 29. 41. 14. 30. 31. 43. 19. 32. 34. 36. 35. 42.
- 30. 38. 31. 43. 33. 30. 35. 34. 29. 17. 38. 44. 32. 37. 34. 27. 35. 35.
- 30. 24. 31. 28. 18. 33. 35. 30. 29. 37. 34. 29. 37. 17. 21. 24. 27. 43.
- 30. 16. 18. 33. 35. 31. 28. 36. 18. 21. 24. 21. 15. 35. 25. 29. 29. 21.
- 34. 34. 34. 29. 19. 35. 29. 41. 16. 31. 41. 36. 36. 20. 23. 38. 26. 28.
- 33. 28. 42. 38. 30. 35. 28. 30. 31. 27. 29. 26. 21. 27. 20. 28. 31. 16.
- 22. 38. 29. 22. 33. 22. 34. 27. 17. 32. 21. 40. 34. 36. 29. 39. 21. 22.
- 36. 30. 43. 24. 31. 40. 23. 29. 18. 32. 30. 23. 23. 18. 30. 34. 22. 30.
- 17. 33. 32. 35. 23. 35. 30. 38. 32. 23. 16. 21. 32. 32. 21. 18. 26. 30.
- 21. 20. 23. 26. 31. 33. 24. 21. 16. 21. 18. 18. 21. 20. 32. 29. 26. 32.
- 25. 33. 38. 19. 34. 26. 22. 28. 18. 21. 26. 29. 19. 22. 27. 44. 27. 32.
- 22. 33. 39. 37. 21. 26. 20. 19. 39. 30. 30. 20. 24. 34. 22. 35. 27. 34.
- 20. 27. 32. 31. 33. 18. 27. 42. 17. 24. 39. 21. 16. 30. 20. 27. 28. 19.
- 30. 41. 31. 30. 19. 17. 28. 19. 38. 35. 18. 33. 19. 35. 24. 16. 20. 22.
- 34. 30. 21. 30. 31. 35. 19. 21. 22. 43. 35. 21. 19. 22. 36. 31. 30. 31.
- 22. 20. 22. 35. 31. 34. 32. 19. 20. 29. 20. 38. 17. 18. 30. 34. 29. 18.
- 30. 35. 35. 23. 21. 26. 37. 31. 36. 35. 18. 18. 33. 18. 37. 34. 34. 23.
- 20. 34. 35. 31. 24. 22. 36. 28. 28. 35. 30. 35. 19. 22. 31. 18. 22. 36.
- 28. 37. 27. 44. 25. 33. 34. 39. 22. 36. 34. 38. 29. 20. 35. 27. 34. 22.
- 30. 35. 24. 36. 32. 35. 35. 16. 18. 22. 33. 36. 15. 32. 27. 28. 31. 20.
- 31. 29. 22. 37. 33. 24. 31. 19. 35. 20. 24. 20. 33. 32. 34. 40. 36. 32.
- 25. 18. 28. 38. 35. 19. 25. 27. 33. 28. 32. 36. 34. 28. 29. 38. 28. 37.
- 38. 28. 31. 16. 25. 18. 20. 31. 36. 25. 35. 25. 25. 37. 33. 32. 40. 27.
- 33. 49. 21. 38. 26. 36. 34. 21. 22. 18. 33. 32. 29. 36. 33. 29. 28. 19.
- 27. 23. 31. 29. 29. 29. 20. 30. 26. 33. 33. 32. 35. 18. 36. 33. 28. 36.
- 18. 32. 33. 30. 27. 17. 36. 21. 19. 18. 33. 29. 37. 29. 34. 20. 30. 24.
- 32. 36. 35. 24. 32. 33. 21. 36. 20. 16. 40. 33. 25. 34. 15. 36. 16. 28.
- 20. 38. 36. 18. 40. 37. 38. 31. 35. 27. 39. 38. 44. 39. 20. 19. 28. 19.
- 29. 21. 21. 33. 36. 42. 36. 18. 41. 21. 38. 19. 18. 21. 19. 27. 31. 19.
- 32. 33. 40. 35. 34. 16. 20. 20. 37. 33. 16. 36. 35. 33. 40. 36. 31. 17.
- 29. 39. 32. 21. 14. 26. 20. 17. 16. 33. 41. 37. 34. 31. 26. 21. 20. 13.
- 37. 37. 32. 35. 21. 34. 27. 21. 38. 18. 18. 31. 18. 17. 33. 37. 37. 32.
- 32. 34. 21. 40. 32. 40. 32. 37. 33. 29. 28. 26. 33. 35. 40. 30. 23. 33.
- 17. 28. 20. 19. 28. 34. 17. 38. 20. 38. 38. 21. 37. 16. 39. 37. 21. 44.
- 29. 30. 37. 16. 38. 30. 23. 29. 37. 18. 19. 35. 29. 21. 26. 17. 13. 39.
- 26. 15. 28. 29. 30. 42. 21. 30. 19. 21. 23. 36. 28. 42. 40. 24. 32. 24.
- 32. 30. 20. 34. 35. 29. 21. 33. 31. 17. 28. 15. 29. 19. 25. 23. 36. 22.
- 31. 32. 28. 18. 30. 35. 33. 33. 38. 34. 20. 32. 42. 40. 29. 26. 19. 18.
- 36. 24. 20. 34. 26. 29. 38. 31. 32. 16. 33. 31. 34. 32. 33. 33. 37. 34.
- 29. 33. 32. 26. 20. 16. 35. 42. 29. 34. 34. 44. 25. 26. 20. 19. 20. 24.
- 20. 33. 25. 33. 20. 28. 25. 32. 31. 27. 22. 36. 27. 17. 33. 32. 29. 20.
- 35. 31. 26. 32. 28. 36. 36. 27. 40. 29. 31. 31. 16. 39. 34. 32. 32. 18.
- 22. 30. 40. 34. 23. 31. 31. 26. 33. 31. 27. 32. 33. 18. 33. 30. 15. 15.
- 19. 37. 33. 29. 19. 33. 32. 21. 21. 34.]
-
-```
-
 As a quick check, we can ask this array what its shape is. We expect 1000 mole-rat maxima:
 
 ```python
 print(numpy.max(data, axis=1).shape)
-```
-
-```output
-(1000,)
 ```
 
 The expression `(1000,)` tells us we have an N×1 vector, so this is the maximum activity per day for each mole-rat. 
@@ -494,12 +358,6 @@ If we ask for the average across/down axis 0 (rows in our 2D example), we get:
 
 ```python
 print(numpy.mean(data, axis=0))
-```
-
-```output
-[15.849 14.754 16.455 17.93  16.196 16.743 17.364 17.346 15.849 17.121
- 18.689 18.196 17.687 17.083 19.602 19.974 16.125 16.474 16.574 18.281
- 17.178 16.746 19.903 18.174 16.155 17.197 17.095 19.392 14.996 17.159]
 ```
 
 Check the array shape. We expect 30 averages, one for each day of the study:
@@ -511,42 +369,11 @@ print(numpy.mean(data, axis=0).shape)
 ```output
 (30,)
 ```
+
 Similarly, we can apply the `mean` function to axis 1 to get the mole-rat's average activity over the duration of the study (1000 values). 
 
 ```python
 print(numpy.mean(data, axis=1))
-```
-```output
-[ 3.4         4.8         5.53333333  6.          4.4         4.36666667
-  4.93333333  4.73333333  5.83333333  6.36666667  4.36666667  5.73333333
-  5.86666667  4.6         5.13333333  4.2         4.06666667  4.23333333
-  5.          4.63333333  4.5         4.83333333  4.8         5.96666667
-  4.53333333  4.7         4.33333333  4.43333333  4.86666667  7.06666667
-  4.96666667  5.1         4.          4.33333333  5.53333333  5.66666667
-  3.73333333  5.93333333  5.76666667  4.33333333  4.76666667  3.53333333
-  4.43333333  5.03333333  5.5         6.06666667  3.73333333  4.33333333
-  5.16666667  6.23333333  5.86666667  4.33333333  3.7         4.66666667
-  4.5         5.86666667  5.4         5.1         4.5         4.26666667
-  3.96666667  5.76666667  5.73333333  4.          4.7         4.73333333
-  4.76666667  4.23333333  4.8         6.1         5.86666667  4.86666667
-  5.2         4.36666667  5.96666667  4.3         4.63333333  5.53333333
-  3.96666667  5.          4.46666667  3.93333333  5.56666667  5.56666667
-  3.96666667  6.2         5.46666667  4.36666667  5.56666667  4.8
-  4.46666667  4.56666667  5.23333333  4.86666667  5.53333333  5.7
-  4.03333333  4.86666667  5.03333333  5.03333333 10.3        13.26666667
- 25.23333333 17.7        26.23333333 21.06666667 11.73333333 21.1
- 22.06666667 14.13333333 23.7        17.96666667  8.36666667 11.53333333
- 10.5        19.5        20.26666667 20.7        19.8        21.
- 23.76666667  9.36666667 10.23333333 20.96666667 12.93333333 17.06666667
- 18.33333333 11.36666667 21.3        18.76666667 13.96666667 22.13333333
- 20.03333333 20.9        21.4        21.26666667 23.26666667 12.36666667
- 11.1        19.13333333 25.53333333 21.03333333 14.56666667 12.1
- 16.4        12.56666667 17.9        16.03333333 11.96666667 20.06666667
-...
- 20.93333333 17.9        19.         19.83333333 19.23333333 23.13333333
- 22.36666667 11.5        21.33333333 19.4         8.9         9.86666667
- 10.06666667 26.46666667 14.13333333 21.93333333 13.06666667 26.73333333
- 23.93333333 14.2        12.83333333 24.56666667]
 ```
 
 :::::::::::::::::::::::::::::::::::::::  challenge
