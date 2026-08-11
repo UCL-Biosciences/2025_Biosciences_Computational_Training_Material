@@ -11,7 +11,9 @@ You have done a lengthy analysis and just before you send the results to collabo
 
 Download the second and "final" version of the dataset [here](https://github.com/UCL-Biosciences/Biosciences-Computational-Training/blob/prep-2026/workshops/W1_intro_python/data/molerat_activity_v2.csv).
 
-Simply change the file that is loaded at the start  of notebook two (or where ever you load in the data) and run the cells again. It should run all the way through but it is worth checking the output carefully to make sure the data are what you expect, columns have not changed name or data type, etc. 
+Simply change the file that is loaded at the start  of notebook two (or where ever you load in the data) and run the cells again using the `Run All` button at the top of the notebook. It should run all the way through but it is worth checking the output carefully to make sure the data are what you expect, columns have not changed name or data type, etc. 
+
+Note, the patterns are the same in both datasets, just make sure things have run.
 
 ## Ultimate flexibility 🤸🏻‍♀️
 If you want to further test the flexibility of your work, try running a different dataset completely. There are several options in the data folder. This time, you'll need to change a few more things: the file you load, the column names for plots and stats, the name of the output. What else?
