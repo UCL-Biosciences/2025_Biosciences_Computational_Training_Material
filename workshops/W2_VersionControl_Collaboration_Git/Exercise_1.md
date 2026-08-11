@@ -9,7 +9,10 @@ But our work and files are saved to our computer locally. We need to connect the
 
 To do this, we will use **Visual Studio Code**. This is a handy platform that allows you to explore folders, edit files and run code in a single window. It also has lots of useful "extensions" to help your computational life run smoothly. So, a quick detour:
 1. Open visual studio code and click on `Open Folder`. Navigate to the folder you worked in last week and open it.
-2. Log in to github inside Visual Studio Code. Click on the accounts button in the bottom-left (circle with a person'a head in it), above settings icon. Sign in with or to github and follow the instructions in the browser pop-up to authorise VSC to sign in to your github.
+2. Log in to github inside Visual Studio Code. Click on the accounts button in the bottom-left (circle with a person's head in it), above settings icon. Sign in with or to github and follow the instructions in the browser pop-up to authorise VSC to sign in to your github.
+
+(For VSC desktop only, no terminals in VSC web:)
+
 3. In the top bar (File, Edit etc), click on `Terminal` > `New Terminal`. Then, a fiddly bit. This terminal session must be bash (or git bash). In Windows, the default terminal is often powershell. To open a bash terminal, click on the little downwards arrow which is in the top right of the terminal window, next to where it says powershell. If it says bash or git bash already, you can go to the next section.
 4. Finally, we set up a couple of things in our git account. This just ensures any changes we make are linked to our github account - use the same email you signed up to git with:
 ```
@@ -19,10 +22,9 @@ git config --global user.email "your.@email.com"
 
 `git config --list` will show you that the details you have entered are OK.
 
-
-Now we are ready to **"clone" our repo**. The repo will be cloned (downloaded) to where you selected when you clicked `Open Folder` - make sure this is a suitable location:
-1. To get the address of the github repository, go the repo page, click on the big green `Code` button. Make sure you are on the `HTTPS` tab, and copy the URL in the middle of the box. It will be `https://github.com/<username>/<reponame>.git`
-2. Back in the terminal window, enter `git clone https://github.com/<username>/<reponame>.git` (with the correct username and repo name) and press enter.
+Now we are ready to **"clone" our repo**.
+1. In Visual Studio Code, `Ctrl/Cmd+Shift+P` → `Git: Clone`. If you have logged in successfully, you should be able to search for the repo you made earlier
+2. Select the training repo and clone it to where ever you are working on your laptop. Select "Cancel" to keep your current folder open.
 
 #### Adding files to the repo (20 mins)
 We are going to add the code, data and outputs from last week. To simulate a real example, we will have two versions - the "wrong" data and the "correct" data. And get a recap on last week while we are here.
