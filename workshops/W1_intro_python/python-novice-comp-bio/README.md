@@ -4,25 +4,11 @@
 [![Create a Slack Account with us][create_slack_svg]][slack_heroku_invite]
 [![Slack Status][slack_channel_status]][slack_channel_url]
 
-An introduction to Python for non-programmers using inflammation data.
+An introduction to Python for non-programmers using simulated naked mole-rat data.
 
 ## About the Lesson
 
-This lesson teaches novice programmers to write modular code to perform data analysis
-using Python. The emphasis, however, is on teaching language-agnostic principles of
-programming such as automation with loops and encapsulation with functions,
-see [Best Practices for Scientific Computing][best-practices] and
-[Good enough practices in scientific computing][good-practices] to learn more.
-
-The example used in this lesson analyses a set of 12 files with simulated inflammation
-data collected from a trial for a new treatment for arthritis. Learners are shown
-how it is better to automate analysis using functions instead of repeating analysis
-steps manually.
-
-The rendered version of the lesson is available at:
-[https://swcarpentry.github.io/python-novice-inflammation/](https://swcarpentry.github.io/python-novice-inflammation/).
-
-This lesson is also available in [R] and [MATLAB].
+This session is a brief intro to coding in python - how to set up a session, python basics, reading in data, and doing some plots... with a bonus activity too!
 
 ## Episodes
 
@@ -33,21 +19,8 @@ This lesson is also available in [R] and [MATLAB].
 | 3   | [Visualizing Tabular Data][episode03]        | 50   | How can I visualize tabular data in Python?<br>How can I group several plots together?                                  |
 
 
-## Contributing
-
-[![Travis Build Status][travis_svg]][travis_url]
-
-We welcome all contributions to improve the lesson!
-Maintainers will do their best to help you if you have any questions, concerns,
-or experience any difficulties along the way.
-
-We'd like to ask you to familiarize yourself with our [Contribution Guide](CONTRIBUTING.md)
-and have a look at the [more detailed guidelines][lesson-example] on proper formatting,
-ways to render the lesson locally, and even how to write new episodes!
-
 ## Maintainers
-
-Lesson maintainers are [Toan Phung][noatgnu], [Indraneel Chakraborty][ineelhere] and [Olushola Ogunkelu][Shorla].
+Thanks to Carpentries and the original lesson maintainers are [Toan Phung][noatgnu], [Indraneel Chakraborty][ineelhere] and [Olushola Ogunkelu][Shorla]!
 
 ## Authors
 
