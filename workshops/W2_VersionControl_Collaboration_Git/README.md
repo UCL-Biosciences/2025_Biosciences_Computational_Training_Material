@@ -76,6 +76,10 @@ Why might a branch + PR be safer than uploading straight to main, even without a
 
 And crucially, git requires some learning; do you think it will be worth it based on what you've seen so far?!
 
+## Setup Back-up
+If you are having problems with Visual Studio Code, try the [web version](https://vscode.dev/). Let it see the files on your machine and it works in a similar way.  
+
+
 ## What's next?
 Now you've got a version-controlled, collaboratively-reviewed project with two analyses sitting in it. But version control on its own doesn't guarantee someone else (or future-you) can actually understand or run what's in there. Next week we'll pick up exactly where this leaves off: making sure the code, data, and environment behind a project are genuinely reproducible — for yourself, for collaborators like the one you just worked with, and for the wider research community — using good research data management, FAIR principles, and our institutional storage systems.
 
