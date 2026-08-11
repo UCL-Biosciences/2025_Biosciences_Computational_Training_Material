@@ -48,7 +48,7 @@ need for each program.
 Once we've imported the library, we can ask the library to read our data file for us:
 
 ```python
-numpy.loadtxt(fname='inflammation-01.csv', delimiter=',')
+numpy.loadtxt(fname='../data/molerat_activity_v1.csv', delimiter=',') # note this assumes notebook lives in a notebook dir, same level as data dir, and needs `../data`
 ```
 
 ```output
