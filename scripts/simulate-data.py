@@ -1,379 +1,198 @@
 #!/usr/bin/env python3
 """
-Generate synthetic teaching datasets for the UCL Biosciences Computational
+Generate the synthetic dataset for the UCL Biosciences Computational
 Training course.
 
-Written by Claude 02 08 26
+One dataset: activity counts for a colony of naked mole-rats.
 
-Run in carpentries environment: https://raw.githubusercontent.com/carpentries/workshop-template/refs/heads/gh-pages/data/carpentries_environment.yml 
+    rows    = animals
+    columns = successive observation sessions
+    values  = activity count for that animal in that session
 
-The default dataset is a naked mole-rat colony study: one row per animal,
-with role as the grouping variable and colony as the batch equivalent.
-This is the dataset the whole cohort works with.
+No header row, no text columns, one measurement type throughout, so
 
-Four further domains (genomics, imaging, neuro, structural) are kept for
-reuse if a separate dataset is ever needed. All share a common schema, so
-the same Week 1 materials work for any of them:
+    numpy.loadtxt(fname='molerat_activity_v1.csv', delimiter=',')
 
-    sample_id | <grouping> | <batch> | <8-11 measured columns> | target_a | target_b
+works with no further arguments.
 
-For the mole-rat dataset those first three are sample_id, role, colony.
-The other domains use the generic names group and batch.
+Row layout
+----------
+The first BREEDERS rows are breeding animals. Everything after that is a
+non-breeder. Nothing in the file says so - participants are told the
+ordering and compare the two blocks themselves:
 
-Two outcome columns, for the Week 5 contrast:
-    target_a  driven by a straightforward additive combination of three
-              columns. A logistic regression handles it well.
-    target_b  driven by an interaction between two columns (the outcome
-              depends on them moving together, not on either level) plus an
-              intermediate optimum on a third (best at mid-range, worse at
-              both extremes). No single column separates the classes, so
-              t-tests and correlations find nothing and a main-effects
-              logistic regression scores ~0.50. A tree-based model finds it
-              without being told the structure. Adding the right interaction
-              and quadratic terms to the regression also recovers it - the
-              point is that ML did not need to be told.
+    data[:100].mean(axis=0)     vs     data[100:].mean(axis=0)
 
-Two versions per dataset:
+Breeders are much less active, so the difference is easy to see.
+
+What the clustering exercise is for
+-----------------------------------
+The non-breeders are not one thing. Some are workers, who are highly
+active, and some are soldiers, who sit in between breeders and workers.
+They are shuffled together in the file, and nothing marks which is which.
+Clustering the animals by their activity recovers three groups without
+being told there are three, or what they are.
+
+The separation is deliberately clear enough that k-means on the raw counts
+finds it. Run with --labels to write a companion file of true group names
+for checking the answer afterwards.
+
+The reference colony
+--------------------
+    molerat_reference_v1.csv
+
+A second, separate colony that was observed intensively enough for every
+animal's role to be known. It has a header row and a "role" column, then
+one column per session. Equal numbers of each role, because the animals
+were picked deliberately rather than sampled from a colony.
+
+This is the training set. A model is fitted here, on known roles, and then
+used to predict roles in the main colony, where nothing is labelled. That
+is a real workflow, and it keeps the training labels independent of the
+data being predicted - unlike clustering the main colony and then
+predicting its own cluster labels, which is circular.
+
+The reference colony was observed under slightly different conditions, so
+its counts run a little higher throughout. Models that lean on absolute
+activity levels transfer worse than models that use the relative shape.
+
+Why a linear model struggles
+----------------------------
+"Is this animal a soldier?" cannot be answered by a straight line.
+Soldiers sit between breeders and workers, so isolating them means cutting
+the middle out of a range, and a single threshold cannot do it. Logistic
+regression scores below chance; a random forest is near perfect; and
+per-animal mean activity alone scores exactly 0.500.
+
+The classes have to be balanced for this to show. In a whole colony there
+are six times as many workers as breeders, so "high activity means not a
+soldier" is right often enough that a logistic regression reaches ~0.84
+and the contrast disappears. The reference colony is balanced by design,
+which is one reason to train on it.
+
+Two versions:
     v1  the dataset participants build their notebook against
-    v2  the same experiment run again: identical schema, same groups, same
-        batch labels, same column order. New sample IDs, rows in a different
-        order, and different values. A notebook written against v1 should
-        run on v2 unchanged and produce visibly different figures.
-
-The data is clean. No missing values, no mixed-type columns, no duplicate
-IDs. Every numeric column loads as numeric.
+    v2  the same study run again. Same shape, same row layout, different
+        values. A notebook written against v1 should run on v2 unchanged
+        and produce visibly different figures.
 
 Nothing here is biologically meaningful. It is shaped to be recognisable,
 not to be true.
 
+Where the files go
+------------------
+By default the files are written into the workshop folders that use them,
+found by glob so that renaming a workshop does not break this script:
+
+    workshops/W1*/data/    activity matrices
+    workshops/W4*/data/    activity matrices, reference colony, labels
+
+W1 gets the activity matrices to plot. W4 is the AI session, so it gets
+the reference colony to train on and the activity matrices to predict.
+
+Use --outdir to write everything to one folder instead, for testing.
+
 Usage:
-    python simulate-data.py                       # mole-rat, 1k and 10k
-    python simulate-data.py --domain neuro        # one of the other domains
-    python simulate-data.py --all-domains         # every domain
-    python simulate-data.py --rows 50000000       # large file for the HPC session
-    python simulate-data.py --rows 1000 --rows 10000 --rows 50000000
+    python simulate-data.py
+    python simulate-data.py --outdir /tmp/check
+    python simulate-data.py --animals 500 --sessions 40
+    python simulate-data.py --animals 5000000        # large file for HPC
 """
 
 import argparse
 from pathlib import Path
 
 import numpy as np
-import pandas as pd
 
 # --------------------------------------------------------------------------
-# Shared schema - the same shape for every domain and both versions
+# Study design
 # --------------------------------------------------------------------------
 
-ID_COL = "sample_id"
-TARGET_A = "target_a"
-TARGET_B = "target_b"
+ANIMALS = 1000
+SESSIONS = 30
 
-# Default column names and labels for the grouping and batch variables.
-# A domain may override any of these with its own "group_col", "batch_col",
-# "groups", "group_p" and "batches" keys.
-GROUP_COL = "group"
-BATCH_COL = "batch"
-GROUPS = ["Control", "TreatmentA", "TreatmentB"]
-BATCHES = ["B01", "B02", "B03"]
+# Proportions of the colony. Breeders always occupy the first rows;
+# workers and soldiers are shuffled together after them.
+BREEDER_FRAC = 0.10
+SOLDIER_FRAC = 0.30
+# workers take the remainder
 
-DEFAULT_DOMAIN = "molerat"
+# Mean activity counts per session for each group. These set how far apart
+# the clusters sit - the gaps are what k-means finds.
+LEVELS = {"breeder": 5.0, "soldier": 12.0, "worker": 22.0}
 
-TARGET_AUC_SCALE = 1.6          # target_a: tuned so a simple model lands ~0.8 AUC
-INTERACTION_W = 2.2             # target_b: strength of the two-column interaction
-OPTIMUM_W = 1.9                 # target_b: strength of the intermediate optimum
-V2_SHIFT = 0.45                 # how far v2 moves, in SDs; bigger = more
-                                # visibly different figures
+# Animal-to-animal variation. The clustering is sensitive to this: at 0.12
+# k-means recovers the three groups well (adjusted Rand ~0.92), and by 0.18
+# the soldier and worker clusters merge (~0.38).
+INDIVIDUAL_SPREAD = 0.12
+SESSION_SPREAD = 0.08       # session-to-session variation in conditions
 
+V2_SHIFT = 1.15             # v2 runs a little busier throughout
 
-# --------------------------------------------------------------------------
-# Domain definitions
-#
-# Each column is (distribution, params, decimals).
-#   normal    : (mean, sd)
-#   lognormal : (mu, sigma)        -> right-skewed positive values
-#   nbinom    : (mean, dispersion) -> overdispersed counts
-#   poisson   : (mean,)
-#   beta      : (a, b, scale)
-#
-# "group_col"    overrides the column name for the grouping variable
-# "batch_col"    overrides the column name for the batch variable
-# "groups"       overrides the default group labels (optional)
-# "group_p"      relative frequency of each group (optional, default equal)
-# "batches"      overrides the default batch labels (optional)
-# "signal"       columns driving target_a, with weights
-# "group_effect" columns whose mean differs between treatment groups
-# "interaction"  the two columns whose concordance drives target_b
-# "optimum"      the column with an intermediate optimum, driving target_b.
-#                Must be a roughly symmetric column (normal, not lognormal).
-#                The optimum is symmetric in ranks, so on a skewed column it
-#                leaves a real linear correlation that a t-test would find,
-#                which defeats the point of target_b.
-#
-# interaction/optimum deliberately use columns that do NOT drive target_a,
-# so the two outcomes are independent structures.
-# --------------------------------------------------------------------------
+# The reference colony: equal numbers of each role, all known.
+# Which workshop folders get which files. The globs mean a workshop can be
+# renamed without touching this script, as long as the W-number survives.
+DESTINATIONS = [
+    ("workshops/W1*", {"activity"}),
+    ("workshops/W4*", {"activity", "reference", "labels"}),
+]
 
-DOMAINS = {
-    # ---------------------------------------------------------------------
-    # The default dataset. One row per animal in a naked mole-rat colony
-    # study, with the animal's role in the colony and which colony it came
-    # from.
-    #
-    # Role frequencies are deliberately unequal - mostly workers, few
-    # queens - which is closer to a real colony and gives Week 1 an
-    # unbalanced grouping variable to handle.
-    # ---------------------------------------------------------------------
-    "molerat": {
-        "unit": "animal",
-        "prefix": "NMR",
-        "group_col": "role",
-        "batch_col": "colony",
-        # Ordered smallest-to-largest: the per-group shift is applied as a
-        # gradient along this list, so the order is meaningful.
-        "groups": ["Worker", "Soldier", "Breeder", "Queen"],
-        "group_p": [0.58, 0.26, 0.12, 0.04],
-        "batches": ["Colony-A", "Colony-B", "Colony-C",
-                    "Colony-D", "Colony-E"],
-        "columns": {
-            "body_mass_g":              ("normal",    (35.0, 6.0), 1),
-            "age_months":               ("lognormal", (4.0, 0.5), 0),
-            "resting_metabolic_rate":   ("lognormal", (-1.4, 0.3), 3),
-            "body_temp_c":              ("normal",    (32.2, 0.9), 1),
-            "hypoxia_survival_min":     ("lognormal", (2.9, 0.45), 1),
-            "hyaluronan_mda":           ("normal",    (6.8, 1.1), 2),
-            "cortisol_ng_ml":           ("lognormal", (2.2, 0.5), 2),
-            "incisor_wear_score":       ("beta",      (3, 7, 1.0), 3),
-            "chirps_per_hour":          ("poisson",   (24,), 0),
-            "grooming_events_day":      ("poisson",   (11,), 0),
-            "telomere_length_kb":       ("normal",    (19.5, 3.2), 2),
-        },
-        "signal": {"hypoxia_survival_min": 1.1,
-                   "resting_metabolic_rate": -0.9,
-                   "telomere_length_kb": 0.8},
-        "group_effect": {"body_mass_g": 0.8, "cortisol_ng_ml": -0.6},
-        "interaction": ("hyaluronan_mda", "age_months"),
-        "optimum": "body_temp_c",
-    },
-
-    "genomics": {
-        "unit": "sample",
-        "prefix": "GEN",
-        "columns": {
-            "tx_count_total":          ("nbinom",    (1_800_000, 0.3), 0),
-            "genes_detected":          ("normal",    (14500, 2200), 0),
-            "mito_fraction":           ("beta",      (2, 40, 1.0), 4),
-            "ribo_fraction":           ("beta",      (5, 30, 1.0), 4),
-            "mean_gc_percent":         ("normal",    (46.5, 2.1), 2),
-            "duplication_rate":        ("beta",      (3, 12, 1.0), 4),
-            "median_tx_length":        ("lognormal", (7.4, 0.35), 0),
-            "counts_gene_of_interest": ("nbinom",    (450, 0.5), 0),
-        },
-        "signal": {"mito_fraction": -1.0, "genes_detected": 0.9,
-                   "counts_gene_of_interest": 1.1},
-        "group_effect": {"counts_gene_of_interest": 0.8, "genes_detected": 0.4},
-        "interaction": ("ribo_fraction", "duplication_rate"),
-        "optimum": "mean_gc_percent",
-    },
-
-    "imaging": {
-        "unit": "field_of_view",
-        "prefix": "IMG",
-        "columns": {
-            "nuclei_count":        ("poisson",   (240,), 0),
-            "mean_nuclear_area":   ("normal",    (185.0, 34.0), 2),
-            "mean_cell_area":      ("normal",    (720.0, 160.0), 2),
-            "mean_intensity_dapi": ("normal",    (1420.0, 260.0), 1),
-            "mean_intensity_gfp":  ("lognormal", (6.2, 0.55), 1),
-            "nuclear_circularity": ("beta",      (12, 3, 1.0), 4),
-            "fraction_in_focus":   ("beta",      (18, 2, 1.0), 4),
-            "background_sd":       ("lognormal", (3.1, 0.4), 2),
-        },
-        "signal": {"mean_intensity_gfp": 1.2, "nuclei_count": 0.7,
-                   "nuclear_circularity": -0.8},
-        "group_effect": {"mean_intensity_gfp": 0.9, "nuclei_count": 0.5},
-        "interaction": ("mean_intensity_dapi", "mean_cell_area"),
-        "optimum": "mean_nuclear_area",
-    },
-
-    "neuro": {
-        "unit": "cell",
-        "prefix": "NEU",
-        "columns": {
-            "resting_potential_mv":  ("normal",    (-65.0, 5.5), 2),
-            "input_resistance_mohm": ("lognormal", (5.2, 0.45), 1),
-            "membrane_tau_ms":       ("lognormal", (2.6, 0.4), 2),
-            "rheobase_pa":           ("normal",    (110.0, 38.0), 1),
-            "ap_threshold_mv":       ("normal",    (-42.0, 4.2), 2),
-            "ap_half_width_ms":      ("lognormal", (0.05, 0.3), 3),
-            "max_firing_rate_hz":    ("normal",    (48.0, 14.0), 1),
-            "spike_count":           ("poisson",   (86,), 0),
-            "adaptation_index":      ("beta",      (4, 6, 1.0), 4),
-        },
-        "signal": {"max_firing_rate_hz": 1.1, "input_resistance_mohm": -0.9,
-                   "ap_half_width_ms": 0.8},
-        "group_effect": {"max_firing_rate_hz": 0.7, "rheobase_pa": -0.6},
-        "interaction": ("membrane_tau_ms", "adaptation_index"),
-        "optimum": "resting_potential_mv",
-    },
-
-    "structural": {
-        "unit": "structure",
-        "prefix": "STR",
-        "columns": {
-            "resolution_ang":       ("lognormal", (0.65, 0.32), 2),
-            "r_free":               ("normal",    (0.235, 0.035), 4),
-            "chain_length_aa":      ("lognormal", (5.6, 0.6), 0),
-            "molecular_weight_kda": ("lognormal", (3.5, 0.6), 2),
-            "fraction_helix":       ("beta",      (5, 7, 1.0), 4),
-            "fraction_sheet":       ("beta",      (4, 9, 1.0), 4),
-            "mean_b_factor":        ("lognormal", (3.5, 0.45), 2),
-            "radius_gyration_ang":  ("normal",    (24.5, 6.2), 2),
-            "ligand_count":         ("poisson",   (2.4,), 0),
-            "isoelectric_point":    ("normal",    (6.9, 1.4), 2),
-        },
-        "signal": {"resolution_ang": -1.2, "r_free": -1.0,
-                   "mean_b_factor": -0.7},
-        "group_effect": {"resolution_ang": -0.6, "mean_b_factor": -0.5},
-        "interaction": ("fraction_helix", "fraction_sheet"),
-        "optimum": "isoelectric_point",
-    },
-}
+REFERENCE_PER_ROLE = 100
+REFERENCE_SHIFT = 1.10      # observed under slightly different conditions
 
 
-# --------------------------------------------------------------------------
-# Samplers
-# --------------------------------------------------------------------------
-
-def sample_column(rng, dist, params, n):
-    """Draw n values from the named distribution."""
-    if dist == "normal":
-        mean, sd = params
-        return rng.normal(mean, sd, n)
-    if dist == "lognormal":
-        mu, sigma = params
-        return rng.lognormal(mu, sigma, n)
-    if dist == "poisson":
-        (lam,) = params
-        return rng.poisson(lam, n).astype(float)
-    if dist == "nbinom":
-        # parameterised by mean and dispersion (smaller = more overdispersed)
-        mean, disp = params
-        r = 1.0 / disp
-        p = r / (r + mean)
-        return rng.negative_binomial(r, p, n).astype(float)
-    if dist == "beta":
-        a, b, scale = params
-        return rng.beta(a, b, n) * scale
-    raise ValueError(f"unknown distribution: {dist}")
-
-
-def urank(x):
+def build(animals, sessions, version, seed):
     """
-    Rank-transform to a centred, unit-variance scale.
+    Build one activity matrix, and the true group label for each row.
 
-    Used only when building target_b. The domain columns are skewed, counted
-    or bounded, and a raw product of two of them would be dominated by a few
-    extreme values. Ranking makes the interaction behave the same way in
-    every column regardless of its distribution.
+    Breeders occupy the first rows. Workers and soldiers are shuffled
+    together after them, so the file gives away nothing about which
+    non-breeder is which.
     """
-    x = np.asarray(x, dtype=float)
-    r = np.empty(len(x))
-    r[np.argsort(x)] = np.arange(1, len(x) + 1)
-    return (r / (len(x) + 1) - 0.5) * 2 * np.sqrt(3)
-
-
-def zscore(x):
-    x = np.asarray(x, dtype=float)
-    sd = x.std()
-    return (x - x.mean()) / (sd if sd > 0 else 1.0)
-
-
-# --------------------------------------------------------------------------
-# Frame construction
-# --------------------------------------------------------------------------
-
-def build_frame(domain, n, version, seed):
-    """
-    Build one dataset.
-
-    v1 and v2 are identical in schema: same columns, same order, same group
-    labels, same batch labels. They differ in sample IDs, row order, and
-    values.
-    """
-    cfg = DOMAINS[domain]
     rng = np.random.default_rng(seed)
 
-    # Sample IDs: same convention, different numbers.
-    offset = 0 if version == 1 else 500_000
-    ids = [f"{cfg['prefix']}-{i + offset:06d}" for i in range(1, n + 1)]
+    n_breeder = int(round(animals * BREEDER_FRAC))
+    n_soldier = int(round(animals * SOLDIER_FRAC))
+    n_worker = animals - n_breeder - n_soldier
 
-    group_col = cfg.get("group_col", GROUP_COL)
-    batch_col = cfg.get("batch_col", BATCH_COL)
-    groups = cfg.get("groups", GROUPS)
-    batches = cfg.get("batches", BATCHES)
-    group_p = cfg.get("group_p")
+    # Non-breeders shuffled together.
+    rest = np.array(["soldier"] * n_soldier + ["worker"] * n_worker)
+    rng.shuffle(rest)
+    labels = np.concatenate([np.array(["breeder"] * n_breeder), rest])
 
-    group = rng.choice(groups, n, p=group_p)
-    batch = rng.choice(batches, n)
+    level = np.array([LEVELS[g] for g in labels], dtype=float)
+    level = level * rng.lognormal(0.0, INDIVIDUAL_SPREAD, animals)
 
-    df = pd.DataFrame({ID_COL: ids, group_col: group, batch_col: batch})
+    # Conditions vary a little between sessions, the same way for everyone.
+    session_factor = rng.lognormal(0.0, SESSION_SPREAD, sessions)
 
-    raw = {}
-    for name, (dist, params, dec) in cfg["columns"].items():
-        vals = sample_column(rng, dist, params, n)
-
-        # Per-group mean shift, so there is something real to plot.
-        if name in cfg["group_effect"]:
-            effect = cfg["group_effect"][name]
-            spread = np.std(vals)
-            for gi, g in enumerate(groups):
-                shift = effect * spread * (gi - (len(groups) - 1) / 2)
-                vals[group == g] += shift
-
-            # v2 moves the whole column, so regenerated figures visibly change.
-            if version == 2:
-                vals += V2_SHIFT * spread * effect
-
-        raw[name] = vals
-
-    # target_a: additive, linear. A regression handles this well.
-    logit_a = np.zeros(n)
-    for name, weight in cfg["signal"].items():
-        logit_a += weight * zscore(raw[name])
-    logit_a = TARGET_AUC_SCALE * logit_a / np.sqrt(
-        sum(w ** 2 for w in cfg["signal"].values())
-    )
-    target_a = (rng.random(n) < 1.0 / (1.0 + np.exp(-logit_a))).astype(int)
-
-    # target_b: interaction + intermediate optimum. Invisible to t-tests,
-    # correlations and a main-effects regression; findable by a tree.
-    ia, ib = cfg["interaction"]
-    logit_b = (INTERACTION_W * urank(raw[ia]) * urank(raw[ib])
-               + OPTIMUM_W * (0.8 - urank(raw[cfg["optimum"]]) ** 2))
-    logit_b -= logit_b.mean()
-    target_b = (rng.random(n) < 1.0 / (1.0 + np.exp(-logit_b))).astype(int)
-
-    for name, (dist, params, dec) in cfg["columns"].items():
-        vals = np.round(raw[name], dec)
-        df[name] = vals.astype("int64") if dec == 0 else vals
-
-    df[TARGET_A] = target_a
-    df[TARGET_B] = target_b
-
-    # v2 rows arrive in a different order. IDs stay attached to their rows;
-    # only the ordering changes.
+    lam = np.outer(level, session_factor)
     if version == 2:
-        df = df.iloc[rng.permutation(n)].reset_index(drop=True)
+        lam = lam * V2_SHIFT
 
-    return df
+    return rng.poisson(lam), labels
 
 
-# --------------------------------------------------------------------------
-# Driver
-# --------------------------------------------------------------------------
+def build_reference(sessions, version, seed):
+    """
+    Build the reference colony: a separate group of animals whose roles are
+    known, with equal numbers of each role.
+    """
+    rng = np.random.default_rng(seed + 777)
 
-SEEDS = {"molerat": 7, "genomics": 11, "imaging": 22,
-         "neuro": 33, "structural": 44}
+    roles = np.array(sorted(LEVELS) * REFERENCE_PER_ROLE)
+    rng.shuffle(roles)
+
+    level = np.array([LEVELS[g] for g in roles], dtype=float)
+    level = level * rng.lognormal(0.0, INDIVIDUAL_SPREAD, len(roles))
+
+    session_factor = rng.lognormal(0.0, SESSION_SPREAD, sessions)
+
+    lam = np.outer(level, session_factor) * REFERENCE_SHIFT
+    if version == 2:
+        lam = lam * V2_SHIFT
+
+    return rng.poisson(lam), roles
 
 
 def size_label(n):
@@ -384,47 +203,72 @@ def size_label(n):
     return str(n)
 
 
-def generate(outdir, domains, sizes):
-    outdir = Path(outdir)
-    outdir.mkdir(parents=True, exist_ok=True)
-    written = []
+def resolve_destinations(outdir):
+    """
+    Work out where to write. Either a single folder given with --outdir, or
+    the workshop folders matched by the DESTINATIONS globs.
+    """
+    if outdir is not None:
+        return [(Path(outdir), {"activity", "reference", "labels"})]
 
-    for domain in domains:
-        for version in (1, 2):
-            for n in sizes:
-                seed = SEEDS[domain] + version * 1000 + n
-                df = build_frame(domain, n, version, seed)
-                p = outdir / f"{domain}_v{version}_{size_label(n)}.csv"
-                df.to_csv(p, index=False)
-                written.append(p)
-
-    return written
+    root = Path(__file__).resolve().parent.parent
+    found = []
+    for pattern, wants in DESTINATIONS:
+        matches = sorted(d for d in root.glob(pattern) if d.is_dir())
+        if not matches:
+            print(f"warning: nothing matched {pattern} under {root}")
+        for m in matches:
+            found.append((m / "data", wants))
+    return found
 
 
 def main():
     ap = argparse.ArgumentParser(
         description=__doc__,
         formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--outdir", default="data")
-    ap.add_argument("--domain", choices=sorted(DOMAINS), action="append",
-                    help=f"which dataset to generate; repeatable "
-                         f"(default: {DEFAULT_DOMAIN})")
-    ap.add_argument("--all-domains", action="store_true",
-                    help="generate every domain, not just the default")
-    ap.add_argument("--rows", type=int, action="append",
-                    help="row counts to generate; repeatable "
-                         "(default: 1000 and 10000). Use a large value here "
-                         "to produce the oversized file for the HPC session.")
+    ap.add_argument("--outdir", default=None,
+                    help="write everything here instead of the workshop "
+                         "folders")
+    ap.add_argument("--animals", type=int, default=ANIMALS)
+    ap.add_argument("--sessions", type=int, default=SESSIONS)
     args = ap.parse_args()
 
-    if args.all_domains:
-        domains = sorted(DOMAINS)
-    else:
-        domains = args.domain or [DEFAULT_DOMAIN]
-    sizes = args.rows or [1000, 10000]
+    destinations = resolve_destinations(args.outdir)
+    if not destinations:
+        raise SystemExit("no destination folders found - nothing written")
 
-    for p in generate(args.outdir, domains, sizes):
-        print(f"{p}  ({p.stat().st_size / 1024:.0f} KB)")
+    tag = "" if args.animals == ANIMALS else f"_{size_label(args.animals)}"
+
+    for version in (1, 2):
+        seed = 100 + version
+        activity, labels = build(args.animals, args.sessions, version, seed)
+        reference, roles = build_reference(args.sessions, version, seed)
+
+        header = "role," + ",".join(f"s{i + 1:02d}"
+                                    for i in range(args.sessions))
+
+        for dest, wants in destinations:
+            dest.mkdir(parents=True, exist_ok=True)
+
+            if "activity" in wants:
+                f = dest / f"molerat_activity_v{version}{tag}.csv"
+                np.savetxt(f, activity, delimiter=",", fmt="%d")
+                print(f"{f}  {activity.shape[0]} animals x "
+                      f"{activity.shape[1]} sessions")
+
+            if "reference" in wants:
+                f = dest / f"molerat_reference_v{version}.csv"
+                with open(f, "w") as fh:
+                    fh.write(header + "\n")
+                    for role, row in zip(roles, reference):
+                        fh.write(role + "," +
+                                 ",".join(str(v) for v in row) + "\n")
+                print(f"{f}  {len(roles)} animals with known roles")
+
+            if "labels" in wants:
+                f = dest / f"molerat_labels_v{version}{tag}.csv"
+                np.savetxt(f, labels, fmt="%s")
+                print(f"{f}  {len(labels)} labels (answer key)")
 
 
 if __name__ == "__main__":
