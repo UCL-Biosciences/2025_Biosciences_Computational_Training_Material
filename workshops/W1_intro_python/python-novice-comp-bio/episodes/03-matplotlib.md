@@ -44,7 +44,7 @@ data = numpy.loadtxt(fname='../data/molerat_activity_v1.csv', delimiter=',')
 
 ```python
 import matplotlib.pyplot
-image = matplotlib.pyplot.imshow(data)
+image = matplotlib.pyplot.imshow(data, aspect='auto')
 matplotlib.pyplot.show()
 ```
 
@@ -56,40 +56,41 @@ yellow pixels represent high values.  As we can see, the general amount of activ
 
 So far so good as this is in line with our knowledge of naked mole-rat colonies. The top 100 rows are breeders, who do all the reproduction in a colony but much less working behaviour.
 
-Now let's take a look at the average inflammation over time:
+Now let's take a look at the average activity over time:
 
 ```python
-ave_inflammation = numpy.mean(data, axis=0)
-ave_plot = matplotlib.pyplot.plot(ave_inflammation)
+ave_day = numpy.mean(data, axis=0)
+ave_day_plot = matplotlib.pyplot.plot(ave_day)
 matplotlib.pyplot.show()
 ```
 
-![](fig/inflammation-01-average.svg){alt='A line graph showing the average inflammation across all patients over a 40-day period.'}
+<img width="545" height="413" alt="image" src="https://github.com/user-attachments/assets/d6e7021b-5295-426b-bcfb-a2f0daa19ed0" />
+{alt='A line graph showing the average activity across all mole-rats over a 30-day period.'}
 
-Here, we have put the average inflammation per day across all patients in the variable
-`ave_inflammation`, then asked `matplotlib.pyplot` to create and display a line graph of those
-values.  The result is a reasonably linear rise and fall, in line with Dr. Maverick's claim that
-the medication takes 3 weeks to take effect.  But a good data scientist doesn't just consider the
-average of a dataset, so let's have a look at two other statistics:
+Here, we have put the average activity per day across all mole-rats in the variable
+`ave_activity`, then asked `matplotlib.pyplot` to create and display a line graph of those
+values. It is quite variable - even naked mole-rats need days off!
+
+But that is not what we are really interested in. We want to know if there are any differences in behaviour between breeders and non-breeders. We plot the average per individual, this time taking the average per row across all columns so `axis=1`.
 
 ```python
-max_plot = matplotlib.pyplot.plot(numpy.max(data, axis=0))
+ave_MR = numpy.mean(data, axis=1)
+ave_MR_plot = matplotlib.pyplot.plot(ave_MR)
 matplotlib.pyplot.show()
 ```
 
-![](fig/inflammation-01-maximum.svg){alt='A line graph showing the maximum inflammation across all patients over a 40-day period.'}
+<img width="543" height="413" alt="image" src="https://github.com/user-attachments/assets/9df6bdd1-fcd5-4c7a-98c5-222b6ec0e50e" />
+{alt='A line graph showing the average activity per individual.'}
 
 ```python
-min_plot = matplotlib.pyplot.plot(numpy.min(data, axis=0))
+min_plot = matplotlib.pyplot.plot(numpy.min(data, axis=1))
 matplotlib.pyplot.show()
 ```
 
-![](fig/inflammation-01-minimum.svg){alt='A line graph showing the minimum inflammation across all patients over a 40-day period.'}
+<img width="556" height="413" alt="image" src="https://github.com/user-attachments/assets/09f7b516-4931-4f7a-b939-1d66178c1aa1" />
+{alt='A line graph showing the minimum activity per mole-rat.'}
 
-The maximum value rises and falls linearly, while the minimum seems to be a step function.
-Neither trend seems particularly likely, so either there's a mistake in our calculations or
-something is wrong with our data. This insight would have been difficult to reach by examining
-the numbers themselves without visualization tools.
+Looks like it is pretty clear; while the average amount of activity varies over time, the breeders (top 100 rows) are consistently less active. Must be busy seeing to important business..
 
 ### Grouping plots
 
@@ -109,7 +110,7 @@ Here are our three plots side by side:
 import numpy
 import matplotlib.pyplot
 
-data = numpy.loadtxt(fname='inflammation-01.csv', delimiter=',')
+data = numpy.loadtxt(fname='../data/molerat_activity_v1.csv', delimiter=',')
 
 fig = matplotlib.pyplot.figure(figsize=(10.0, 3.0))
 
@@ -118,21 +119,21 @@ axes2 = fig.add_subplot(1, 3, 2)
 axes3 = fig.add_subplot(1, 3, 3)
 
 axes1.set_ylabel('average')
-axes1.plot(numpy.mean(data, axis=0))
+axes1.plot(numpy.mean(data, axis=1))
 
 axes2.set_ylabel('max')
-axes2.plot(numpy.max(data, axis=0))
+axes2.plot(numpy.max(data, axis=1))
 
 axes3.set_ylabel('min')
-axes3.plot(numpy.min(data, axis=0))
+axes3.plot(numpy.min(data, axis=1))
 
 fig.tight_layout()
 
-matplotlib.pyplot.savefig('inflammation.png')
+matplotlib.pyplot.savefig('activity.png')
 matplotlib.pyplot.show()
 ```
 
-![](fig/inflammation-01-group-plot.svg){alt='Three line graphs showing the daily average, maximum and minimum inflammation over a 40-day period.'}
+<img width="988" height="290" alt="image" src="https://github.com/user-attachments/assets/593f42ec-8fa8-4f6c-89e8-46c51a066e4b" />{alt='Three line graphs showing the daily average, maximum and minimum activity over a 40-day period.'}
 
 The [call](../learners/reference.md#function-call) to `loadtxt` reads our data,
 and the rest of the program tells the plotting library
@@ -147,7 +148,7 @@ The call to `savefig` stores the plot as a graphics file. This can be
 a convenient way to store your plots for use in other documents, web
 pages etc. The graphics format is automatically determined by
 Matplotlib from the file name ending we specify; here PNG from
-'inflammation.png'. Matplotlib supports many different graphics
+'activity.png'. Matplotlib supports many different graphics
 formats, including SVG, PDF, and JPEG.
 
 :::::::::::::::::::::::::::::::::::::::::  callout
@@ -209,7 +210,7 @@ Update your plotting code to automatically set a more appropriate scale.
 ```python
 # One method
 axes3.set_ylabel('min')
-axes3.plot(numpy.min(data, axis=0))
+axes3.plot(numpy.min(data, axis=1))
 axes3.set_ylim(0, 6)
 ```
 
@@ -221,7 +222,7 @@ axes3.set_ylim(0, 6)
 
 ```python
 # A more automated approach
-min_data = numpy.min(data, axis=0)
+min_data = numpy.min(data, axis=q)
 axes3.set_ylabel('min')
 axes3.plot(min_data)
 axes3.set_ylim(numpy.min(min_data), numpy.max(min_data) * 1.1)
@@ -229,71 +230,20 @@ axes3.set_ylim(numpy.min(min_data), numpy.max(min_data) * 1.1)
 
 :::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
-:::::::::::::::::::::::::::::::::::::::  challenge
-
-## Drawing Straight Lines
-
-In the center and right subplots above, we expect all lines to look like step functions because
-non-integer values are not realistic for the minimum and maximum values. However, you can see
-that the lines are not always vertical or horizontal, and in particular the step function
-in the subplot on the right looks slanted. Why is this?
-
-:::::::::::::::  solution
-
-## Solution
-
-Because matplotlib interpolates (draws a straight line) between the points.
-One way to do avoid this is to use the Matplotlib `drawstyle` option:
-
-```python
-import numpy
-import matplotlib.pyplot
-
-data = numpy.loadtxt(fname='inflammation-01.csv', delimiter=',')
-
-fig = matplotlib.pyplot.figure(figsize=(10.0, 3.0))
-
-axes1 = fig.add_subplot(1, 3, 1)
-axes2 = fig.add_subplot(1, 3, 2)
-axes3 = fig.add_subplot(1, 3, 3)
-
-axes1.set_ylabel('average')
-axes1.plot(numpy.mean(data, axis=0), drawstyle='steps-mid')
-
-axes2.set_ylabel('max')
-axes2.plot(numpy.max(data, axis=0), drawstyle='steps-mid')
-
-axes3.set_ylabel('min')
-axes3.plot(numpy.min(data, axis=0), drawstyle='steps-mid')
-
-fig.tight_layout()
-
-matplotlib.pyplot.show()
-```
-
-![](fig/inflammation-01-line-styles.svg){alt='Three line graphs, with step lines connecting the points, showing the daily average, maximumand minimum inflammation over a 40-day period.'}
-
-
-
-:::::::::::::::::::::::::
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Make Your Own Plot
 
 Create a plot showing the standard deviation (`numpy.std`)
-of the inflammation data for each day across all patients.
+of the activity data for each day across all mole-rats.
 
 :::::::::::::::  solution
 
 ## Solution
 
 ```python
-std_plot = matplotlib.pyplot.plot(numpy.std(data, axis=0))
+std_plot = matplotlib.pyplot.plot(numpy.std(data, axis=1))
 matplotlib.pyplot.show()
 ```
 
@@ -316,7 +266,7 @@ instead of side by side.
 import numpy
 import matplotlib.pyplot
 
-data = numpy.loadtxt(fname='inflammation-01.csv', delimiter=',')
+data = numpy.loadtxt(fname='../data/molerat_activity_v1.csv', delimiter=',')
 
 # change figsize (swap width and height)
 fig = matplotlib.pyplot.figure(figsize=(3.0, 10.0))
@@ -327,13 +277,13 @@ axes2 = fig.add_subplot(3, 1, 2)
 axes3 = fig.add_subplot(3, 1, 3)
 
 axes1.set_ylabel('average')
-axes1.plot(numpy.mean(data, axis=0))
+axes1.plot(numpy.mean(data, axis=1))
 
 axes2.set_ylabel('max')
-axes2.plot(numpy.max(data, axis=0))
+axes2.plot(numpy.max(data, axis=1))
 
 axes3.set_ylabel('min')
-axes3.plot(numpy.min(data, axis=0))
+axes3.plot(numpy.min(data, axis=1))
 
 fig.tight_layout()
 
