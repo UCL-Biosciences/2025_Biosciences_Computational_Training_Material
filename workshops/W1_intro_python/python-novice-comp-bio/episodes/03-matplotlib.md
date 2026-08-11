@@ -37,7 +37,7 @@ notebook at this point, you need the following two lines:
 
 ```python
 import numpy
-data = numpy.loadtxt(fname='inflammation-01.csv', delimiter=',')
+data = numpy.loadtxt(fname='../data/molerat_activity_v1.csv', delimiter=',')
 ```
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -48,19 +48,13 @@ image = matplotlib.pyplot.imshow(data)
 matplotlib.pyplot.show()
 ```
 
-![](fig/inflammation-01-imshow.svg){alt='Heat map representing the data variable. Each cell is colored by value along a color gradient from blue to yellow.'}
+![](fig/activity-01-imshow.svg){alt='Heat map representing the data variable. Each cell is colored by value along a color gradient from blue to yellow.'}
 
-Each row in the heat map corresponds to a patient in the clinical trial dataset, and each column
+Each row in the heat map corresponds to a mole-rat in the behaviour dataset, and each column
 corresponds to a day in the dataset.  Blue pixels in this heat map represent low values, while
-yellow pixels represent high values.  As we can see, the general number of inflammation flare-ups
-for the patients rises and falls over a 40-day period.
+yellow pixels represent high values.  As we can see, the general amount of activity is lower in the top ~100 rows than the rest.
 
-So far so good as this is in line with our knowledge of the clinical trial and Dr. Maverick's
-claims:
-
-- the patients take their medication once their inflammation flare-ups begin
-- it takes around 3 weeks for the medication to take effect and begin reducing flare-ups
-- and flare-ups appear to drop to zero by the end of the clinical trial.
+So far so good as this is in line with our knowledge of naked mole-rat colonies. The top 100 rows are breeders, who do all the reproduction in a colony but much less working behaviour.
 
 Now let's take a look at the average inflammation over time:
 
