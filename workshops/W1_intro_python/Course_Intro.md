@@ -29,7 +29,7 @@ Some general thoughts.
 - Confidence – that you can trace what you’ve done, that it is correct, and that if not, you can identify mistakes and correct them easily.
 - Code, results, data that is FAIR are more likely to be used by others. More citations, but also means your effort isn’t wasted and we don’t keep starting from scratch every time we do an analysis!
 
-## Aims for the course**
+## Aims for the course
 By the end of this course, participants will:
 1.	See computational skills as a normal, expected part of biological research — not a specialist add-on — and understand why the field now requires this of everyone (papers, funders, and basic scientific practice).
 2.	Have hands-on experience with the core tools of computational biology — Python, git/GitHub, environment management, HPC, and a practical grounding in AI/ML — enough to continue learning independently and know where to go deeper.
