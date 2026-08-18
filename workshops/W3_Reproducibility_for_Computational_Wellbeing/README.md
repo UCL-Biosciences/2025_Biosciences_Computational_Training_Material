@@ -70,12 +70,9 @@ Here's the "who does this help?" table, built from what came up in the room toda
 | Persistent IDs (ORCID, Zenodo DOI) | | | |
 
 ### FAIR-enough, not FAIR-perfect
-Nobody's project is perfectly FAIR, and that's fine. The question isn't "have I done everything," it's "what's the one thing that would make the biggest difference to my project right now?"
+We want our work to be transparent and understandable so people can use it (and ideally earn us a few more citations). Nobody's project is perfectly FAIR but we should all be thinking about what is FAIR-enough for each project we work on.
 
 Using the last menti poll, choose which example from today you're most likely to implement in your work — write the README, snapshot the environment, move data to RDSS, tag a release, or something else entirely. [Link]
 
 ## What's next
 You now have a version-controlled, reproducible, documented, and citable project. Next week, we take it to UCL's HPC cluster — you'll clone this exact repo, rebuild the environment you just captured, and run the analysis as a proper job on someone else's machine. If today's work holds up, it should be a doddle! Let's see!
-
-- Create a new notebook (create a file with `.ipynb` extension) or create a new python script (a file with `.py` extension)
-- Add some code, copy an example from [matplotlib gallery](https://matplotlib.org/stable/gallery/index.html)
