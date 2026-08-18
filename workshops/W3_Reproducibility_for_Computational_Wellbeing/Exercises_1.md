@@ -4,7 +4,7 @@
 Dig out a project instead you haven't touched in at least 6 months.
 
 Look at the files. Can you find everything you'd need to understand and rerun this project — raw data, metadata, code, documentation, results? Note anything missing.
-If there's code, try to rerun it. Without changing anything first, see if you can get from raw data to a known output or figure.
+**Make sure you copy/save/protect and important files**, then if there's code, try to rerun it. Without changing anything first, see if you can get from raw data to a known output or figure.
 
 Log where it breaks, or where you got stuck just trying to find things in step 1.
 
@@ -34,7 +34,7 @@ project/
 
 The key idea: **raw data is read-only**. If a script writes over your raw data, you've lost your ability to rerun anything from scratch. Everything in `processed/` and `results/` should be things you could delete entirely and regenerate by rerunning your scripts.
 
-1. Look at your project's current structure. Where does it diverge from this?
+1. Look at your folder from the first two weeks. Where does it diverge from this?
 2. Reorganise it — move files into `data/raw`, `data/processed`, `scripts/`, `results/` as appropriate.
 3. Commit the reorganisation with a clear commit message (e.g. `restructure: separate raw/processed/results`).
 
@@ -57,9 +57,9 @@ Write a working `.gitignore` for your project based on this sort. (GitHub has go
 
 1. Mount the RDSS training project (or use the web upload client if mounting isn't playing nice — ask if you're stuck).
 2. Upload your raw data there instead of committing it to git.
-3. **Checkpoint (at the halfway mark)**: by now you should have RDSS mounted and be part-way through uploading. If you're not, flag it now rather than at the end.
+3. **Checkpoint (at the halfway mark)**: by now you should have RDSS mounted and be part-way through uploading. If you're not, flag it now.
 
-This activity is hard time-limited. If you're still stuck when time's up, don't worry — make a note and we'll follow up with you individually after the session, rather than holding up the room.
+This activity is hard time-limited. If you're still stuck when time's up, don't worry — make a note and we'll follow up with you individually after the session, rather than during the workshop.
 
 **Menti check**: who does offloading data to proper storage actually help? [Link]
 
