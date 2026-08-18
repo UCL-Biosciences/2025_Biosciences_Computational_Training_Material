@@ -64,7 +64,7 @@ Here's the "who does this help?" table, built from what came up in the room toda
 | Thing | Helps yourself? | Helps collaborators? | Helps community? |
 |---|---|---|---|
 | Clear project structure | | | |
-| Deciding what's in the repo (incl. data storage) | | | |
+| Appropriate data storage plan | | | |
 | Environment management (conda) | | | |
 | Documentation, metadata, file naming | | | |
 | Persistent IDs (ORCID, Zenodo DOI) | | | |
