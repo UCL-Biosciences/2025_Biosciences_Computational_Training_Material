@@ -55,7 +55,7 @@ Whichever you choose, work in it for the whole session so you leave with real pr
 
 We'll build up a picture of *why* each habit matters as we go, using a running "who does this help?" check — yourself, your collaborators, or the wider community. By the end of the session we'll reveal the full picture, built from your answers.
 
-The [first exercise](Exercises_1.md) covers the rerun test, reorganising a repo into a structure, and deciding what actually belongs in it. The [second exercise](Exercises_2.md) covers capturing your environment, writing a README that lets someone rerun your work cold, and publishing a real, citable release of your project.
+The [first exercise](Exercises_1.md) covers project organisation. The [second exercise](Exercises_2.md) sharing your project and making sure it is reproducible.
 
 ## Wrap-up discussion
 
