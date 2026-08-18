@@ -30,13 +30,12 @@ Now we are ready to **"clone" our repo**.
 We are going to add the code, data and outputs from last week. To simulate a real example, we will have two versions - the "wrong" data and the "correct" data. And get a recap on last week while we are here.
 
 1. Go to the notebook you made last week. Edit the file path to the original dataset and re-run the notebook. Make sure the outputs are saved.
-2. Open File Explorer and move the notebook, data and outputs into the local clone of the repo (made in previous step).
-3. Go back to the Visual Studio Code terminal. Important step! You will need to move to the folder. Click open folder again, navigate to the clone of the repo and open. Repeat the steps above to open a new terminal window.
-4. Check the status of the repo by running `git status`. It should tell you that there are some new files added! Which tells us git has noticed the files have been created (or moved into the folder). To register (track) the files needs two steps. First `git add filename`, then `git commit -m "initial commit"`.
+2. In Visual Studio Code's explorer panel, move the notebook, data and outputs into the local clone of the repo (made in previous step).
+3. Find the `Source Control` icon on the left hand side (<img width="25.4" height="25.4" alt="image" src="https://github.com/user-attachments/assets/bc9ffeb9-d358-400c-9339-d12257525abd" />) and you should see all the files you moved listed as 'Changes'. This means git has found the new files and is ready to add them to the repo = start "tracking" them.
+4. Type a message in the box at the top of 'Source Control' e.g. "first commit", click 'Commit' and click on 'Yes'. This will add all the files to the repository and git will now track all changes to them.
+5. Click on "Sync Changes" and "OK" to push the changes to the remote repository i.e. the one on github.com.
 
-Adding files tells git to find the files you want to change and record the info about what changes have been made. You can add lots of files at once. Committing changes is what generates a snapshot of the repository and records all the information about changes that have been made since the last commit. So `add` and `committ` work together closely, but do different jobs.
-
-Finally, run `git push` to send the new files and all the information in the commit to the "remote" repository on github.
+Adding files tells git to find the files you want to change and record the info about what changes have been made. You can add lots of files at once. Committing changes is what generates a snapshot of the repository and records all the information about changes that have been made since the last commit. 
 
 **Authentication**. If you have not signed in to github in Visual Studio Code, you will need to do it before you can `push`. Sign in via the Accounts icon bottom-left of VS Code.
 
@@ -47,7 +46,9 @@ Because those files were pushed to git, that info will be stored as long as the 
 
 So, go to the notebook again. Read in the correct dataset, re-run the code and save new outputs. No need to change the names of the output files!
 
-Then, return to Visual Studio Code and the git bash terminal window, and send the changes to github by adding, committing and pushing.
+Then, return to Visual Studio Code and make sure the edited files are shown in the `Source Control` icon on the left hand side (<img width="25.4" height="25.4" alt="image" src="https://github.com/user-attachments/assets/bc9ffeb9-d358-400c-9339-d12257525abd" />). This should include the notebook(s) you edit and any outputs you saved.
+
+Write a message, commit the changes, and push (sync) them to the github repo. Done!
 
 #### Viewing changes on github (10 mins)
 Go to the repo online and see what changes you can find:
