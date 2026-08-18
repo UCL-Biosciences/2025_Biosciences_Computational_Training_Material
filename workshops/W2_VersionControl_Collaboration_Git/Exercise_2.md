@@ -7,7 +7,7 @@ You'll both do every step below — each of you is Repo Owner (for your own repo
 #### Giving each other access (5 mins)
 
 Go to your own repo → Settings → Collaborators → Add people. Search your partner's GitHub username, give them "Maintain" rights, and send the invite.
-Check your email / GitHub notifications bell for your partner's invite and accept it.
+Check your email / GitHub notifications bell for your partner's invite and accept it. After you have been invited, you can see the repository (even if it is private) by going to github.com/USER/REPO (remember to change USER and REPO).
 
 This can take a couple of minutes to come through. While you wait, look at your collaborators repo. Does it look the same as yours? How is it different?
 
@@ -16,13 +16,13 @@ We're about to send our work and changes to a colleague's repo. If we send it di
 
 It's safer to send our changes to a secure, separate working copy first, before anything gets added to the main version. So we make a working copy — called a branch — of all the contents in the repo and send our changes there instead of straight to the "main" branch. The repo owner can then review the changes and decide whether to accept them or not, without the main content being at risk.
 
-1. On your partner's repo page, click the branch dropdown (usually says `main`) → type a new branch name, e.g. `<your-name>-data` → `Create branch`
-2. Make sure the branch selector now shows your new branch, not main
+1. On your partner's repo page, click the branch dropdown (usually says `main`) → type a new branch name, e.g. `<your-name>-data` → `Create branch`.
+2. This will take you to the page summarising the repo's branches. Click on the branch you made and make sure the branch selector now shows your new branch, not main
 
 #### Adding your files (10 mins)
 Still on your partner's repo, on your new branch:
 1. Click `Add file` → `Upload files`. `Add file` is to the left of the big green `Code` button and sometimes minimises to a `+` symbol
-2. Drag in your notebook, dataset, and output files from last week
+2. Drag in your notebook, dataset, and output files from last week. At this point, think about file names. If you use the same file names as your partner, what will happen when you both try to upload the files?
 3. Scroll down, add a short commit message, confirm you're committing to your branch (not main), click Commit changes
 
 #### Opening and merging the Pull Request (15 mins)
