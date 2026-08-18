@@ -53,13 +53,19 @@ Not everything belongs in git. Large raw data files bloat your repository and sl
 
 Write a working `.gitignore` for your project based on this sort. (GitHub has good starter templates for Python projects if you want a base to edit.)
 
-**So where does the big raw data actually go?** This is where institutional storage comes in — UCL's Research Data Storage Service (RDSS). You should already have access to a training project we set up in advance.
+**So where does the big raw data actually go?**
+#### Research data
+While we are still working on research data, we need somewhere to store it. This is where institutional storage comes in — UCL's Research Data Storage Service (RDSS). You should already have access to a training project we set up in advance.
 
 1. Mount the RDSS training project (or use the web upload client if mounting isn't playing nice — ask if you're stuck).
 2. Upload your raw data there instead of committing it to git.
 3. **Checkpoint (at the halfway mark)**: by now you should have RDSS mounted and be part-way through uploading. If you're not, flag it now.
 
 This activity is hard time-limited. If you're still stuck when time's up, don't worry — make a note and we'll follow up with you individually after the session, rather than during the workshop.
+
+#### Publishing data
+Published data should be FAIR. The best solution is to publish them in domain-specific archives e.g. ncbi, [bioimage archive](https://www.ebi.ac.uk/bioimage-archive/) etc. If there is not a suitable public archive, UCL has a Research Data Repository where datasets can be published and are discoverable by unique DOIs - more citations!
+
 
 **Menti check**: who does offloading data to proper storage actually help? [Link]
 
