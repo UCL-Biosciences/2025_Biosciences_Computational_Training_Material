@@ -1,6 +1,6 @@
-### Exercise 1 - Rerun Test, Structure Rescue, and What's In The Repo (75 mins)
+# Exercise 1 - Rerun Test, Structure Rescue, and What's In The Repo (75 mins)
 
-#### The rerun test (15 mins)
+## The rerun test (15 mins)
 Dig out a project instead you haven't touched in at least 6 months.
 
 Look at the files. Can you find everything you'd need to understand and rerun this project — raw data, metadata, code, documentation, results? Note anything missing.
@@ -18,7 +18,8 @@ Some common culprits:
 
 Make a note of something that broke. At the end of the session, we'll look at everyone's problems and see if we have addressed any of them.
 
-#### Structure rescue (25 mins)
+## Project rescue (25 mins)
+### Folder Structure
 A predictable structure means you (or anyone else) can open an unfamiliar repo and know where to look, without reading every file. A reasonable minimum:
 
 ```
@@ -32,15 +33,19 @@ project/
 └── README.md          # more on this later too
 ```
 
-The key idea: **raw data is read-only**. If a script writes over your raw data, you've lost your ability to rerun anything from scratch. Everything in `processed/` and `results/` should be things you could delete entirely and regenerate by rerunning your scripts.
+### File Naming
+Read through this [guide](https://datamanagement.hms.harvard.edu/plan-design/file-naming-conventions) for file naming - think about what would be important for you. Which of these is something you have not thought about before?
 
-1. Look at your folder from the first two weeks. Where does it diverge from this?
+### Activity
+1. Look at your folder from the first two weeks. Where does it diverge from this? Make a note 
 2. Reorganise it — move files into `data/raw`, `data/processed`, `scripts/`, `results/` as appropriate.
 3. Commit the reorganisation with a clear commit message (e.g. `restructure: separate raw/processed/results`).
 
+If you finish this, look at a real project you are working on. How could the organisation be improved?
+
 **Menti check**: who does a clear structure actually help? [Link]
 
-#### What's in the repo? (35 mins)
+## Where do we store data? (35 mins)
 Not everything belongs in git. Large raw data files bloat your repository and slow down every clone, forever — git never forgets, even if you delete the file later.
 
 **Sort the following into "commit to git", "add to `.gitignore`", or "store elsewhere entirely":**
@@ -54,20 +59,24 @@ Not everything belongs in git. Large raw data files bloat your repository and sl
 Write a working `.gitignore` for your project based on this sort. (GitHub has good starter templates for Python projects if you want a base to edit.)
 
 **So where does the big raw data actually go?**
-#### Research data
+## Research data
 While we are still working on research data, we need somewhere to store it. This is where institutional storage comes in — UCL's Research Data Storage Service (RDSS). You should already have access to a training project we set up in advance.
 
 1. Mount the RDSS training project (or use the web upload client if mounting isn't playing nice — ask if you're stuck).
 2. Upload your raw data there instead of committing it to git.
-3. **Checkpoint (at the halfway mark)**: by now you should have RDSS mounted and be part-way through uploading. If you're not, flag it now.
 
-This activity is hard time-limited. If you're still stuck when time's up, don't worry — make a note and we'll follow up with you individually after the session, rather than during the workshop.
+### Other storage solutions
+RDSS for most research data but there are lots of options. Some more info [here](https://github.com/UCL-Biosciences/Biosciences-Comp-Support/blob/main/UCL_comp_guides/data_storage_at_UCL.md). In particular, sensitive data must not be on RDSS! See TRE for more info.
 
-#### Publishing data
-Published data should be FAIR. The best solution is to publish them in domain-specific archives e.g. ncbi, [bioimage archive](https://www.ebi.ac.uk/bioimage-archive/) etc. If there is not a suitable public archive, UCL has a Research Data Repository where datasets can be published and are discoverable by unique DOIs - more citations!
+## Publishing data
+Published data should be FAIR. Increases probability someone else will use it which increases your citation count while also making best use of the data.
 
+The best solution is to publish them in domain-specific archives e.g. ncbi, [bioimage archive](https://www.ebi.ac.uk/bioimage-archive/) etc. General-purpose repositories are also good if there is not an appropriate specific option, plus UCL has a Research Data Repository where datasets can be published and are discoverable by unique DOIs - more citations!
+
+## Metadata
+Research data can be unusable if it doesn't have metadata. At the very least, you need sample metadata to link research data to sample characteristics. This should be enough to reproduce your results. There are domain-specific standards that recommend what we should include.
 
 **Menti check**: who does offloading data to proper storage actually help? [Link]
 
-#### Summary
+## Summary
 You now have a repo that's structured sensibly, has a working `.gitignore`, and has its raw data sitting somewhere sensible rather than bloating your git history. None of that touches whether the *code itself* still runs elsewhere, though — that's next, after the break.
