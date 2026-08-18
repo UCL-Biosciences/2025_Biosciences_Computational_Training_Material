@@ -58,7 +58,7 @@ This is the bridge from everything you've done in W1 and W2 to next week's HPC s
 
 Keep it short — a few minutes' read, not a manual.
 
-**Publish a real, citable version of your project:**
+**Publish a citable version of your project:**
 1. Make sure your README and environment file are all committed and pushed.
 2. If you don't already have one, create an [ORCID](https://orcid.org) — most of you should have this already from the pre-session setup.
 3. Go to [zenodo.org](https://zenodo.org) and link your GitHub account (a quick one-minute authorisation, not a full separate signup).
