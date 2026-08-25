@@ -82,10 +82,10 @@ Add your answer to the Menti poll: which technique improved your output the most
 #### Examples
 Participants should try this first, but I found these prompts produced increasingly useful responses:
 
-- I built a model to classify animals into groups based on activity. What does this mean biologically?
-- I built a model to classify animals into groups based on activity. What does this mean biologically? The dataset is naked mole-rat activity counts — number of activity events per animal per observation session. You found three clusters with average counts of roughly 5, 12, and 22.
-- I built a model to classify animals into groups based on activity. What does this mean biologically? The dataset is naked mole-rat activity counts — number of activity events per animal per observation session. You found three clusters with average counts of roughly 5, 12, and 22. How does this map onto naked mole-rat biology?
-- I built a model to classify animals into groups based on activity. What does this mean biologically? The dataset is naked mole-rat activity counts — number of activity events per animal per observation session. You found three clusters with average counts of roughly 5, 12, and 22. How does this map onto naked mole-rat biology? i want to explore whether this is evidence for distinct social groups
+- I built a model to classify animals into groups based on activity. What does this mean biologically? Be concise
+- I built a model to classify animals into groups based on activity. What does this mean biologically? The dataset is naked mole-rat activity counts — number of activity events per animal per observation session. A binary model achieved 93% accuracy, and a three-way model achieved 77% with most errors between the second and third groups. Be concise
+- I built a model to classify animals into groups based on activity. What does this mean biologically? The dataset is naked mole-rat activity counts — number of activity events per animal per observation session. A binary model achieved 93% accuracy, and a three-way model achieved 77% with most errors between the second and third groups. How does this map onto naked mole-rat biology? Be concise
+- I built a model to classify animals into groups based on activity. What does this mean biologically? The dataset is naked mole-rat activity counts — number of activity events per animal per observation session.  A binary model achieved 93% accuracy, and a three-way model achieved 77% with most errors between the second and third groups. How does this map onto naked mole-rat biology? i want to explore whether this is evidence for distinct social groups. Be concise
 - The previous prompt + the scatter plots.
 
 how does this map onto naked mole-rat biology?
