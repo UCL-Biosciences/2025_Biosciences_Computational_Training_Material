@@ -84,7 +84,7 @@ Participants should try this first, but I found these prompts produced increasin
 
 - I built a model to classify animals into groups based on activity. What does this mean biologically?
 - I built a model to classify animals into groups based on activity. What does this mean biologically? The dataset is naked mole-rat activity counts — number of activity events per animal per observation session. You found three clusters with average counts of roughly 5, 12, and 22.
-- I built a model to classify animals into groups based on activity. What does this mean biologically? The dataset is naked mole-rat activity counts — number of activity events per animal per observation session. You found three clusters with average counts of roughly 5, 12, and 22.
+- I built a model to classify animals into groups based on activity. What does this mean biologically? The dataset is naked mole-rat activity counts — number of activity events per animal per observation session. You found three clusters with average counts of roughly 5, 12, and 22. How does this map onto naked mole-rat biology?
 - I built a model to classify animals into groups based on activity. What does this mean biologically? The dataset is naked mole-rat activity counts — number of activity events per animal per observation session. You found three clusters with average counts of roughly 5, 12, and 22. How does this map onto naked mole-rat biology? i want to explore whether this is evidence for distinct social groups
 - The previous prompt + the scatter plots.
 
