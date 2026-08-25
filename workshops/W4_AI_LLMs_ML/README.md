@@ -59,4 +59,4 @@ Using this last Menti poll, tell us: what's one thing from today you'll actually
 
 ## What's next?
 
-Next week is the final session: HPC. You'll take the repo you've been building — code, environment, data — and run it as a proper job on UCL's cluster. The analysis you've been doing all course finally scales up.
+One important thing about machine learning workflows is that they iterate through data. We run them lots of times to improve the performance. This multiplies the time required to run the models and the models themselves can already require a lot of compute. Next week, we will explore a solution to running big, greedy analyses using UCL HPCs. You'll take the repo you've been building — code, environment, data — and run it as a proper job on UCL's cluster.
