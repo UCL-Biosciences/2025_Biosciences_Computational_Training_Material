@@ -49,9 +49,9 @@ Now for something practical. We're going to use an LLM to interpret the clusteri
 
 ### Round 1: the bad prompt (10 mins)
 
-Everyone send this exact prompt to an LLM of your choice along with the PCA plot generated earlier:
+Everyone send this exact prompt to an LLM of your choice. To ensure it doesn't learn over the conversations you have, open it in an "incognito" window.
 
-> **"I clustered my data into 3 groups. What does this mean biologically?"**
+> **"I built a model to classify animals into groups based on activity. What does this mean biologically?"**
 
 Note what you get back. Then share your output with your partner. Are they the same? Probably not — and that's the first thing worth noticing.
 
@@ -69,17 +69,24 @@ Now try again, using some of the techniques below. You don't have to use all of 
 
 **Give context about who you are and what you're doing.** What organism? What measurement? What question were you trying to answer?
 
-**Specify a format.** A table? A short paragraph? Bullet points?
-
 **Provide the data description.** The dataset is naked mole-rat activity counts — number of activity events per animal per observation session. You found three clusters with average counts of roughly 5, 12, and 22.
 
 **Iterate.** If the first response isn't quite right, follow up. Ask it to be more cautious, or to focus on a specific aspect, or to consider an alternative explanation.
 
-**Set up a project.** If you're using Claude or ChatGPT, try setting up a project with background context about your research area. How does that change the starting point for the conversation?
+**Set up a project.** If you're using Claude or ChatGPT, try setting up a project with background context about your research area. How does that change the starting point for the conversation? Note, this requires you to log in and can't be fully incognito.
 
 Share your improved prompt and output with your partner. What made the biggest difference?
 
 Add your answer to the Menti poll: which technique improved your output the most? [Link]
+
+#### Examples
+Participants should try this first, but I found these prompts produced increasingly useful responses:
+
+- I built a model to classify animals into groups based on activity. What does this mean biologically? Be concise
+- I built a model to classify animals into groups based on activity. What does this mean biologically? The dataset is naked mole-rat activity counts — number of activity events per animal per observation session. A binary model achieved 93% accuracy, and a three-way model achieved 77% with most errors between the second and third groups. Be concise
+- I built a model to classify animals into groups based on activity. What does this mean biologically? The dataset is naked mole-rat activity counts — number of activity events per animal per observation session. A binary model achieved 93% accuracy, and a three-way model achieved 77% with most errors between the second and third groups. How does this map onto naked mole-rat biology? Be concise
+- I built a model to classify animals into groups based on activity. What does this mean biologically? The dataset is naked mole-rat activity counts — number of activity events per animal per observation session.  A binary model achieved 93% accuracy, and a three-way model achieved 77% with most errors between the second and third groups. How does this map onto naked mole-rat biology? i want to explore whether this is evidence for distinct social groups. Be concise
+- The previous prompt + the scatter plots.
 
 ---
 
