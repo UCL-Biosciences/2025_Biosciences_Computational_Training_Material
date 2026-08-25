@@ -124,7 +124,7 @@ LEVELS = {"breeder": 5.0, "soldier": 12.0, "worker": 22.0}
 # Animal-to-animal variation. The clustering is sensitive to this: at 0.12
 # k-means recovers the three groups well (adjusted Rand ~0.92), and by 0.18
 # the soldier and worker clusters merge (~0.38).
-INDIVIDUAL_SPREAD = 0.12
+INDIVIDUAL_SPREAD = 0.35
 SESSION_SPREAD = 0.08       # session-to-session variation in conditions
 
 V2_SHIFT = 1.15             # v2 runs a little busier throughout
