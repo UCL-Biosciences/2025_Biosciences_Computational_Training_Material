@@ -51,7 +51,7 @@ Then we will look at [job scripts](https://github-pages.arc.ucl.ac.uk/hpc-intro/
 
 Now, we will submit the python code we wrote in week 1 as a job. First, [convert the notebook to a python file](https://code.visualstudio.com/docs/python/jupyter-support-py#_convert-jupyter-notebooks-to-python-code-file). If you are working from the command line, make sure you are in the project home folder and have the correct path:
 
-`jupyter nbconvert --to script path/to/your_notebook.ipynb`
+`jupyter nbconvert --to script path/to/your_notebook.ipynb --output path/to/your_script.py`
 
 Have a look at the python (`.py`) file - how is it different to the notebook? Why would these differences be needed in order to submit the code as a job on an HPC?
 
@@ -68,7 +68,7 @@ To run the python script (`.py`) from within the job script (`.sh`), we add this
 conda activate carpentries
 
 ## run the code
-python /path/to/script.py # remember to change the path
+python /path/to/your_script.py # remember to change the path
 ```
 
 Save and close the file and submit it: `pwd && qsub /path/to/script.sh`. Some things to check on its progress:
