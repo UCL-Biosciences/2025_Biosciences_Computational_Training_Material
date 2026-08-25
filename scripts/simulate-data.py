@@ -121,9 +121,9 @@ SOLDIER_FRAC = 0.33
 # the clusters sit - the gaps are what k-means finds.
 LEVELS = {"breeder": 5.0, "soldier": 12.0, "worker": 22.0}
 
-# Animal-to-animal variation. The clustering is sensitive to this: at 0.12
-# k-means recovers the three groups well (adjusted Rand ~0.92), and by 0.18
-# the soldier and worker clusters merge (~0.38).
+# Animal-to-animal variation. Increased from 0.12 to 0.35 so that soldiers
+# and workers overlap enough to make the multiclass classification problem
+# genuinely hard while breeders remain clearly separable.
 INDIVIDUAL_SPREAD = 0.35
 SESSION_SPREAD = 0.08       # session-to-session variation in conditions
 
@@ -142,20 +142,12 @@ REFERENCE_SHIFT = 1.10      # observed under slightly different conditions
 
 
 def build(animals, sessions, version, seed):
-    """
-    Build one activity matrix, and the true group label for each row.
-
-    Breeders occupy the first rows. Workers and soldiers are shuffled
-    together after them, so the file gives away nothing about which
-    non-breeder is which.
-    """
     rng = np.random.default_rng(seed)
 
     n_breeder = int(round(animals * BREEDER_FRAC))
     n_soldier = int(round(animals * SOLDIER_FRAC))
     n_worker = animals - n_breeder - n_soldier
 
-    # Non-breeders shuffled together.
     rest = np.array(["soldier"] * n_soldier + ["worker"] * n_worker)
     rng.shuffle(rest)
     labels = np.concatenate([np.array(["breeder"] * n_breeder), rest])
@@ -163,7 +155,6 @@ def build(animals, sessions, version, seed):
     level = np.array([LEVELS[g] for g in labels], dtype=float)
     level = level * rng.lognormal(0.0, INDIVIDUAL_SPREAD, animals)
 
-    # Conditions vary a little between sessions, the same way for everyone.
     session_factor = rng.lognormal(0.0, SESSION_SPREAD, sessions)
 
     lam = np.outer(level, session_factor)
@@ -174,10 +165,6 @@ def build(animals, sessions, version, seed):
 
 
 def build_reference(sessions, version, seed):
-    """
-    Build the reference colony: a separate group of animals whose roles are
-    known, with equal numbers of each role.
-    """
     rng = np.random.default_rng(seed + 777)
 
     roles = np.array(sorted(LEVELS) * REFERENCE_PER_ROLE)
@@ -204,10 +191,6 @@ def size_label(n):
 
 
 def resolve_destinations(outdir):
-    """
-    Work out where to write. Either a single folder given with --outdir, or
-    the workshop folders matched by the DESTINATIONS globs.
-    """
     if outdir is not None:
         return [(Path(outdir), {"activity", "reference", "labels"})]
 
@@ -220,6 +203,96 @@ def resolve_destinations(outdir):
         for m in matches:
             found.append((m / "data", wants))
     return found
+
+
+README_TEXT = """\
+# Naked mole-rat activity data
+
+## Overview
+
+Activity counts recorded from a captive naked mole-rat colony across a series of observation sessions. Each animal was observed independently in each session and the number of activity events recorded.
+
+This is a synthetic dataset generated for the UCL Biosciences Computational Training course. It is shaped to be biologically recognisable but is not derived from real observations.
+
+## Files
+
+| File | Description |
+|---|---|
+| `molerat_activity_v1.csv` | Activity matrix, version 1 |
+| `molerat_activity_v2.csv` | Activity matrix, version 2 (same colony, second study) |
+| `molerat_labels_v1.csv` | Group labels for version 1 (answer key) |
+| `molerat_labels_v2.csv` | Group labels for version 2 (answer key) |
+| `molerat_reference_v1.csv` | Reference colony with known roles, version 1 |
+| `molerat_reference_v2.csv` | Reference colony with known roles, version 2 |
+
+## Activity matrices (`molerat_activity_v*.csv`)
+
+- **Rows:** individual animals ({animals} per file)
+- **Columns:** observation sessions ({sessions} per file)
+- **Values:** integer activity counts
+- **No header row**
+- **Delimiter:** comma
+
+The first {breeders} rows are breeding animals (breeders). The remaining rows are non-breeders (soldiers and workers), shuffled together with no indication of which is which.
+
+```python
+import numpy as np
+activity = np.loadtxt('molerat_activity_v1.csv', delimiter=',')
+breeders     = activity[:{breeders}]
+non_breeders = activity[{breeders}:]
+```
+
+## Label files (`molerat_labels_v*.csv`)
+
+- **Rows:** one per animal, matching the row order of the activity matrix
+- **Column 1:** binary label — `breeder` or `nonbreeder`
+- **Column 2:** full label — `breeder`, `soldier`, or `worker`
+- **No header row**
+- **Delimiter:** comma
+
+```python
+labels = np.loadtxt('molerat_labels_v1.csv', dtype=str, delimiter=',')
+binary = labels[:, 0]   # breeder / nonbreeder
+multi  = labels[:, 1]   # breeder / soldier / worker
+```
+
+## Reference colony (`molerat_reference_v*.csv`)
+
+A separate colony in which every animal's role was known from the outset. Observed under slightly different conditions, so activity counts run a little higher overall.
+
+- **Header row:** `role, s01, s02, ..., s{sessions:02d}`
+- **Column 1:** role (`breeder`, `soldier`, or `worker`)
+- **Remaining columns:** activity counts per session
+- **Rows:** {reference} animals, equal numbers of each role
+
+```python
+data = np.loadtxt('molerat_reference_v1.csv', delimiter=',', dtype=str, skiprows=1)
+roles    = data[:, 0]
+activity = data[:, 1:].astype(int)
+```
+
+## Colony roles
+
+| Role | Mean activity (counts/session) | Description |
+|---|---|---|
+| Breeder | ~5 | Reproductive animals; low activity, rarely leave the nest |
+| Soldier | ~12 | Colony defence; intermediate activity |
+| Worker | ~22 | Foraging and tunnel maintenance; highest activity |
+
+Activity levels overlap between soldiers and workers. Breeders are clearly separated from both.
+
+## Versions
+
+Version 1 and version 2 represent two independent studies of the same colony type. They have identical structure and row layout but different values. A script written against v1 should run on v2 without modification.
+
+## Generation
+
+Files were generated by `scripts/simulate-data.py` in the course repository. Re-running the script will regenerate all files deterministically from fixed random seeds.
+
+## Licence
+
+Generated for educational use. No restrictions on reuse.
+"""
 
 
 def main():
@@ -238,6 +311,19 @@ def main():
         raise SystemExit("no destination folders found - nothing written")
 
     tag = "" if args.animals == ANIMALS else f"_{size_label(args.animals)}"
+
+    n_breeders = int(round(args.animals * BREEDER_FRAC))
+    readme = README_TEXT.format(
+        animals=args.animals,
+        sessions=args.sessions,
+        breeders=n_breeders,
+        reference=REFERENCE_PER_ROLE * len(LEVELS),
+    )
+    for dest, _ in destinations:
+        dest.mkdir(parents=True, exist_ok=True)
+        f = dest / "README.md"
+        f.write_text(readme)
+        print(f"{f}  data description")
 
     for version in (1, 2):
         seed = 100 + version
@@ -267,7 +353,9 @@ def main():
 
             if "labels" in wants:
                 f = dest / f"molerat_labels_v{version}{tag}.csv"
-                np.savetxt(f, labels, fmt="%s")
+                binary = np.where(labels == "breeder", "breeder", "nonbreeder")
+                two_col = np.column_stack([binary, labels])
+                np.savetxt(f, two_col, fmt="%s", delimiter=",")
                 print(f"{f}  {len(labels)} labels (answer key)")
 
 
