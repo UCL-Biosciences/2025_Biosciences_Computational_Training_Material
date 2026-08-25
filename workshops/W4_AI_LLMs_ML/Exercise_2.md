@@ -88,7 +88,6 @@ Participants should try this first, but I found these prompts produced increasin
 - I built a model to classify animals into groups based on activity. What does this mean biologically? The dataset is naked mole-rat activity counts — number of activity events per animal per observation session.  A binary model achieved 93% accuracy, and a three-way model achieved 77% with most errors between the second and third groups. How does this map onto naked mole-rat biology? i want to explore whether this is evidence for distinct social groups. Be concise
 - The previous prompt + the scatter plots.
 
-how does this map onto naked mole-rat biology?
 ---
 
 ## The bigger point
