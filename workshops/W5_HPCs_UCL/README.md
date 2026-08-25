@@ -30,7 +30,7 @@ By the end of this session, participants will be able to:
 ## Intro activity — why use HPCs?
 HPCs are important when we need more compute power. Let's see if any of the participants have run into power problems: menti quiz. [Link] and QR code:
 
-The questions (mostly in case menti doesn't work):
+Have you ever had these problems?
 - You start a programme or hit run and your laptop is slow/unusable until it has finished
 - Started a big job (e.g. doing analysis, downloading data), only to find the computer turned off before you finished and you have to start again
 - Dataset too big and won't even load
