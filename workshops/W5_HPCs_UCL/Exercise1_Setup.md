@@ -17,10 +17,13 @@ We will discuss how programmes are setup on HPCs as "modules" and how we can use
 We will use the conda module to create an environment that matches the one we set up locally:
 
 ```
-COMMANDS
+[ TO ADD]
+# load conda
+conda  env create -f setup/carpentries_environment_plusML.yml
+conda activate carpentries
 ```
 ### Copy in some data
-Find the RDSS file location and copy some data to a data folder:
+Use the data from the repo OR Find the RDSS file location and copy some data to a data folder:
 
 ```
 mkdir -p data/input
