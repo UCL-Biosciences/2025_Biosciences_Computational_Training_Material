@@ -51,7 +51,7 @@ Now for something practical. We're going to use an LLM to interpret the clusteri
 
 Everyone send this exact prompt to an LLM of your choice along with the PCA plot generated earlier:
 
-> **"I clustered my data into 3 groups. What does this mean biologically?"**
+> **"I built a model to classify animals into groups based on activity. What does this mean biologically?"**
 
 Note what you get back. Then share your output with your partner. Are they the same? Probably not — and that's the first thing worth noticing.
 
