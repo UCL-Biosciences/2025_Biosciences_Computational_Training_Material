@@ -49,18 +49,31 @@ HPCs address some of these problems:
 
 Then we will look at [job scripts](https://github-pages.arc.ucl.ac.uk/hpc-intro/13-scheduler/index.html), which is how we tell the cluster what we want to do.
 
-Now, we will submit the python code we wrote in week 1 as a job. First, [convert the notebook to a python file](https://code.visualstudio.com/docs/python/jupyter-support-py#_convert-jupyter-notebooks-to-python-code-file). Have a look at the python (`.py`) file - how is it different to the notebook? Why would these differences be needed in order to submit the code as a job on an HPC?
+Now, we will submit the python code we wrote in week 1 as a job. First, [convert the notebook to a python file](https://code.visualstudio.com/docs/python/jupyter-support-py#_convert-jupyter-notebooks-to-python-code-file). If you are working from the command line, make sure you are in the project home folder and have the correct path:
 
-To run the python script (`.py`) from within the job script (`.sh`), we add this to your job script:
+`jupyter nbconvert --to script path/to/your_notebook.ipynb`
+
+Have a look at the python (`.py`) file - how is it different to the notebook? Why would these differences be needed in order to submit the code as a job on an HPC?
+
+To run the python script (`.py`) from within the job script (`.sh`), we add this to your job script. Open the file in Visual Studio Code or use `nano /path/to/script.sh` from the command line:
 
 ```
+#!/bin/bash -l
+#$ -N test-python
 ## load modules
 
+[ TO ADD: module load conda ] 
+
 ## activate your environment
+conda activate carpentries
 
 ## run the code
-python /path/to/script.py
+python /path/to/script.py # remember to change the path
 ```
+
+Save and close the file and submit it: `pwd && qsub /path/to/script.sh`. Some things to check on its progress:
+- `qstat` tells you the status of all your jobs, including their unique job IDs
+- You can use the job ID to find its output. By default it will be `test-python.o${JOB_ID}` and will be saved in the folder you were in when you submitted the job. The command `pwd && qsub /path/to/script.sh` prints the working directory before submitting so you know where the output will be!
 
 Finally, download the output and check it on your local computer. You can download it in Visual Studio Code by right-clicking on a file and selecting `Download` - simples!
 
