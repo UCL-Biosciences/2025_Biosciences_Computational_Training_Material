@@ -12,3 +12,4 @@ dependencies:
   - plotly
   - seaborn
   - scikit-learn
+  - nbconvert
