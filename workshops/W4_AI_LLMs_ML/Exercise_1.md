@@ -1,6 +1,6 @@
 # Exercise 1 — Machine Learning in Practice (30 mins)
 
-This is a code-along exercise. Participants to follow along.
+This is a code-along exercise. Participants to follow along with this [notebook](https://github.com/UCL-Biosciences/Biosciences-Computational-Training/blob/prep-2026/workshops/W4_AI_LLMs_ML/W4_ML_demo.ipynb).
 
 ## What we're doing and why
 
