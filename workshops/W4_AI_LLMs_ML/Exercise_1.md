@@ -1,6 +1,6 @@
 # Exercise 1 — Machine Learning in Practice (30 mins)
 
-This is a code-along exercise. Follow along with the instructor in the notebook — you don't need to write anything from scratch.
+This is a code-along exercise. Participants to follow along.
 
 ## What we're doing and why
 
@@ -18,6 +18,6 @@ We'll cover:
 
 ## From numbers to language
 
-Once we've done this with numbers, the instructor will walk through how the same logic applies to text: given a large collection of documents, a language model learns which words tend to follow which other words. The "held-out test" equivalent is predicting the next word in a sentence the model wasn't trained on. This is, at its core, what an LLM is doing.
+Once we've done this with numbers, we will discuss how the same logic applies to text: given a large collection of documents, a language model learns which words tend to follow which other words. The "held-out test" equivalent is predicting the next word in a sentence the model wasn't trained on. This is, at its core, what an LLM is doing.
 
 That framing will carry us through the rest of the session.
