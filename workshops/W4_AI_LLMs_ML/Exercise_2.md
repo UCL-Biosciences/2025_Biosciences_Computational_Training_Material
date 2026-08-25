@@ -18,7 +18,7 @@ Add your ideas to the Menti poll. [Link]
 
 ### What we've found works well (15 mins)
 
-*Instructor-led discussion.*
+Here are some things that LLMs seem to work well for. Discuss them with your partner (focus on ones you did not discuss initially). Feedback to the group which uses are most suitable and how we can improve results.
 
 ---
 
@@ -26,15 +26,7 @@ Add your ideas to the Menti poll. [Link]
 
 ### Discuss with your partner (10 mins)
 
-LLMs come with a set of well-documented limitations and risks. Which of these feel most relevant to you as a researcher? Are there any that you hadn't thought about before?
-
-Some starting points if you're not sure where to begin:
-- Data quality and provenance — where did the training data come from, and does it matter?
-- Hallucination — LLMs produce confident, plausible-sounding text that can be factually wrong
-- Bias — the model reflects patterns in its training data, including their biases
-- Intellectual property — what happens to text you put into an LLM?
-- Reproducibility — will the same prompt give the same answer next week?
-- Uncertainty — LLMs don't know what they don't know
+LLMs come with a set of well-documented limitations and risks. Which feel most relevant to you as a researcher?
 
 ### Share (5 mins)
 
@@ -42,8 +34,13 @@ Add your biggest concern to the Menti poll. [Link]
 
 ### What's worth worrying about (15 mins)
 
-*Instructor-led discussion.*
-
+Discuss in groups any of these that seem important but did not come up in the initial discussion:
+- Data quality and provenance — where did the training data come from, and does it matter?
+- Hallucination — LLMs produce confident, plausible-sounding text that can be factually wrong
+- Bias — the model reflects patterns in its training data, including their biases
+- Intellectual property — Are the authors of the training data properly acknowledged?
+- Reproducibility — will the same prompt give the same answer next week? How can a black box process be reproducible?
+- Uncertainty — LLMs don't know what they don't know
 ---
 
 ## Part C — Getting the most out of LLMs (30 mins)
@@ -52,17 +49,17 @@ Now for something practical. We're going to use an LLM to interpret the clusteri
 
 ### Round 1: the bad prompt (10 mins)
 
-Everyone send this exact prompt to an LLM of your choice:
+Everyone send this exact prompt to an LLM of your choice along with the PCA plot generated earlier:
 
 > **"I clustered my data into 3 groups. What does this mean biologically?"**
 
 Note what you get back. Then share your output with your partner. Are they the same? Probably not — and that's the first thing worth noticing.
 
-Add one observation to the Menti poll: what did your LLM say, in one sentence? [Link]
+Let's see how similar the responses are; add one observation to the Menti poll: what did your LLM say, in one sentence? [Link]
 
 ### What went wrong?
 
-The prompt isn't obviously terrible. But it's missing almost everything the LLM needs to give a useful answer: what organism, what data, what method, what the clusters actually look like, what question you were trying to answer. So it guesses — and what it guesses might be plausible but is unlikely to be useful for your specific case.
+The prompt isn't obviously terrible. But it's missing almost everything the LLM needs to give a useful answer: what organism, what data, what method, what the clusters actually look like, what question you were trying to answer.
 
 ### Round 2: improve it (20 mins)
 
